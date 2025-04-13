@@ -1,0 +1,673 @@
+Year,Team,Win Total Line,Over Odds,Under Odds,Actual Wins,Result,Quarterback,Coach,Team_ABR
+2003,Arizona Cardinals,5,125,-155,4,Under,Jeff Blake,Dave McGinnis,ARI
+2004,Arizona Cardinals,5.5,-130,100,6,Over,Josh McCown,Dennis Green,ARI
+2005,Arizona Cardinals,7,-150,120,5,Under,Kurt Warner,Dennis Green,ARI
+2006,Arizona Cardinals,8,110,-130,5,Under,Matt Leinart,Dennis Green,ARI
+2007,Arizona Cardinals,7,-135,115,8,Over,Kurt Warner,Ken Whisenhunt,ARI
+2009,Arizona Cardinals,8.5,-110,-120,10,Over,Kurt Warner,Ken Whisenhunt,ARI
+2010,Arizona Cardinals,7.5,-140,110,5,Under,Derek Anderson,Ken Whisenhunt,ARI
+2011,Arizona Cardinals,7,-150,120,8,Over,Kevin Kolb,Ken Whisenhunt,ARI
+2012,Arizona Cardinals,7,133,-170,5,Under,John Skelton,Ken Whisenhunt,ARI
+2013,Arizona Cardinals,5.5,-160,125,10,Over,Carson Palmer,Bruce Arians,ARI
+2014,Arizona Cardinals,7.5,-175,155,11,Over,Drew Stanton,Bruce Arians,ARI
+2015,Arizona Cardinals,8.5,120,-140,13,Over,Carson Palmer,Bruce Arians,ARI
+2016,Arizona Cardinals,10,-170,150,7,Under,Carson Palmer,Bruce Arians,ARI
+2017,Arizona Cardinals,8.5,-160,140,8,Under,Carson Palmer,Bruce Arians,ARI
+2018,Arizona Cardinals,6,-130,110,3,Under,Josh Rosen,Steve Wilks,ARI
+2019,Arizona Cardinals,5,-120,100,5,Push,Kyler Murray,Kliff Kingsbury,ARI
+2020,Arizona Cardinals,7.5,-110,-110,8,Over,Kyler Murray,Kliff Kingsbury,ARI
+2021,Arizona Cardinals,8.5,-110,-110,11,Over,Kyler Murray,Kliff Kingsbury,ARI
+2022,Arizona Cardinals,8.5,110,-130,4,Under,Kyler Murray,Kliff Kingsbury,ARI
+2023,Arizona Cardinals,4.5,140,-160,4,Under,Joshua Dobbs,Jonathan Gannon,ARI
+2024,Arizona Cardinals,7,-130,110,8,Over,Kyler Murray,Jonathan Gannon,ARI
+2003,Atlanta Falcons,9.5,-115,-115,5,Under,Doug Johnson,Dan Reeves,ATL
+2004,Atlanta Falcons,9,-110,-120,11,Over,Michael Vick,Jim Mora,ATL
+2005,Atlanta Falcons,9.5,110,-140,8,Under,Michael Vick,Jim Mora,ATL
+2006,Atlanta Falcons,8,-135,115,7,Under,Michael Vick,Jim Mora,ATL
+2007,Atlanta Falcons,7.5,100,-120,4,Under,Joey Harrington,Bobby Petrino,ATL
+2009,Atlanta Falcons,8.5,100,-135,9,Over,Matt Ryan,Mike Smith,ATL
+2010,Atlanta Falcons,9.5,-115,-115,13,Over,Matt Ryan,Mike Smith,ATL
+2011,Atlanta Falcons,10,-105,-125,10,Push,Matt Ryan,Mike Smith,ATL
+2012,Atlanta Falcons,9,-135,105,13,Over,Matt Ryan,Mike Smith,ATL
+2013,Atlanta Falcons,10,100,-130,4,Under,Matt Ryan,Mike Smith,ATL
+2014,Atlanta Falcons,8.5,150,-170,6,Under,Matt Ryan,Mike Smith,ATL
+2015,Atlanta Falcons,8.5,-110,-110,8,Under,Matt Ryan,Dan Quinn,ATL
+2016,Atlanta Falcons,7,-130,110,11,Over,Matt Ryan,Dan Quinn,ATL
+2017,Atlanta Falcons,9.5,-110,-110,10,Over,Matt Ryan,Dan Quinn,ATL
+2018,Atlanta Falcons,9.5,-120,100,7,Under,Matt Ryan,Dan Quinn,ATL
+2019,Atlanta Falcons,8.5,-140,120,7,Under,Matt Ryan,Dan Quinn,ATL
+2020,Atlanta Falcons,7.5,100,-120,4,Under,Matt Ryan,Raheem Morris,ATL
+2021,Atlanta Falcons,7.5,-120,100,7,Under,Matt Ryan,Arthur Smith,ATL
+2022,Atlanta Falcons,4.5,-140,120,7,Over,Marcus Mariota,Arthur Smith,ATL
+2023,Atlanta Falcons,8.5,-155,135,7,Under,Desmond Ridder,Arthur Smith,ATL
+2024,Atlanta Falcons,9.5,-130,110,8,Under,Kirk Cousins,Raheem Morris,ATL
+2003,Baltimore Ravens,7.5,-160,130,10,Over,Kyle Boller,Brian Billick,BAL
+2004,Baltimore Ravens,9,100,-130,9,Push,Kyle Boller,Brian Billick,BAL
+2005,Baltimore Ravens,10,105,-135,6,Under,Kyle Boller,Brian Billick,BAL
+2006,Baltimore Ravens,8,-130,110,13,Over,Steve McNair,Brian Billick,BAL
+2007,Baltimore Ravens,9,-140,120,5,Under,Kyle Boller,Brian Billick,BAL
+2009,Baltimore Ravens,8.5,-150,120,9,Over,Joe Flacco,John Harbaugh,BAL
+2010,Baltimore Ravens,10,-105,-125,12,Over,Joe Flacco,John Harbaugh,BAL
+2011,Baltimore Ravens,10.5,110,-140,12,Over,Joe Flacco,John Harbaugh,BAL
+2012,Baltimore Ravens,10,150,-190,10,Push,Joe Flacco,John Harbaugh,BAL
+2013,Baltimore Ravens,8.5,-110,-120,8,Under,Joe Flacco,John Harbaugh,BAL
+2014,Baltimore Ravens,8.5,-120,100,10,Over,Joe Flacco,John Harbaugh,BAL
+2015,Baltimore Ravens,9,-140,120,5,Under,Joe Flacco,John Harbaugh,BAL
+2016,Baltimore Ravens,8.5,-110,-110,8,Under,Joe Flacco,John Harbaugh,BAL
+2017,Baltimore Ravens,8.5,130,-150,9,Over,Joe Flacco,John Harbaugh,BAL
+2018,Baltimore Ravens,8.5,-120,100,10,Over,Joe Flacco,John Harbaugh,BAL
+2019,Baltimore Ravens,8.5,110,-130,14,Over,Lamar Jackson,John Harbaugh,BAL
+2020,Baltimore Ravens,11.5,120,-140,11,Under,Lamar Jackson,John Harbaugh,BAL
+2021,Baltimore Ravens,10.5,-130,110,8,Under,Lamar Jackson,John Harbaugh,BAL
+2022,Baltimore Ravens,10.5,110,-130,10,Under,Lamar Jackson,John Harbaugh,BAL
+2023,Baltimore Ravens,10,-130,110,13,Over,Lamar Jackson,John Harbaugh,BAL
+2024,Baltimore Ravens,10.5,100,-120,12,Over,Lamar Jackson,John Harbaugh,BAL
+2003,Buffalo Bills,8.5,-130,100,6,Under,Drew Bledsoe,Gregg Williams,BUF
+2004,Buffalo Bills,7.5,-115,-115,9,Over,Drew Bledsoe,Mike Mularkey,BUF
+2005,Buffalo Bills,8,-135,105,5,Under,J.P. Losman,Mike Mularkey,BUF
+2006,Buffalo Bills,7,165,-185,7,Push,J.P. Losman,Dick Jauron,BUF
+2007,Buffalo Bills,6,-110,-110,7,Over,Trent Edwards,Dick Jauron,BUF
+2009,Buffalo Bills,7.5,-120,-110,6,Under,Ryan Fitzpatrick,Dick Jauron,BUF
+2010,Buffalo Bills,5,-125,-105,4,Under,Ryan Fitzpatrick,Chan Gailey,BUF
+2011,Buffalo Bills,5.5,-120,-110,6,Over,Ryan Fitzpatrick,Chan Gailey,BUF
+2012,Buffalo Bills,8,-150,120,6,Under,Ryan Fitzpatrick,Chan Gailey,BUF
+2013,Buffalo Bills,6.5,120,-150,6,Under,EJ Manuel,Doug Marrone,BUF
+2014,Buffalo Bills,6.5,-145,125,9,Over,Kyle Orton,Doug Marrone,BUF
+2015,Buffalo Bills,8.5,130,-150,8,Under,Tyrod Taylor,Rex Ryan,BUF
+2016,Buffalo Bills,8,130,-150,7,Under,Tyrod Taylor,Rex Ryan,BUF
+2017,Buffalo Bills,6.5,130,-150,9,Over,Tyrod Taylor,Sean McDermott,BUF
+2018,Buffalo Bills,5.5,120,-140,6,Over,Josh Allen,Sean McDermott,BUF
+2019,Buffalo Bills,7,-140,120,10,Over,Josh Allen,Sean McDermott,BUF
+2020,Buffalo Bills,9,-120,100,13,Over,Josh Allen,Sean McDermott,BUF
+2021,Buffalo Bills,11.5,-110,-110,11,Under,Josh Allen,Sean McDermott,BUF
+2022,Buffalo Bills,12,-110,-110,13,Over,Josh Allen,Sean McDermott,BUF
+2023,Buffalo Bills,10.5,-140,120,11,Over,Josh Allen,Sean McDermott,BUF
+2024,Buffalo Bills,10,-110,-110,13,Over,Josh Allen,Sean McDermott,BUF
+2003,Carolina Panthers,7.5,-115,-115,11,Over,Jake Delhomme,John Fox,CAR
+2004,Carolina Panthers,8.5,100,-130,7,Under,Jake Delhomme,John Fox,CAR
+2005,Carolina Panthers,9,-130,100,11,Over,Jake Delhomme,John Fox,CAR
+2006,Carolina Panthers,10,-110,-110,8,Under,Jake Delhomme,John Fox,CAR
+2007,Carolina Panthers,9,120,-140,7,Under,Vinny Testaverde,John Fox,CAR
+2009,Carolina Panthers,8.5,110,-140,8,Under,Jake Delhomme,John Fox,CAR
+2010,Carolina Panthers,7,115,-145,2,Under,Jimmy Clausen,John Fox,CAR
+2011,Carolina Panthers,4.5,-105,-125,6,Over,Cam Newton,Ron Rivera,CAR
+2012,Carolina Panthers,7.5,-145,115,7,Under,Cam Newton,Ron Rivera,CAR
+2013,Carolina Panthers,7.5,-140,110,12,Over,Cam Newton,Ron Rivera,CAR
+2014,Carolina Panthers,8,145,-165,7,Under,Cam Newton,Ron Rivera,CAR
+2015,Carolina Panthers,8.5,150,-170,15,Over,Cam Newton,Ron Rivera,CAR
+2016,Carolina Panthers,10.5,120,-140,6,Under,Cam Newton,Ron Rivera,CAR
+2017,Carolina Panthers,9,-120,100,11,Over,Cam Newton,Ron Rivera,CAR
+2018,Carolina Panthers,8.5,110,-130,7,Under,Cam Newton,Ron Rivera,CAR
+2019,Carolina Panthers,8,-130,110,5,Under,Kyle Allen,Ron Rivera,CAR
+2020,Carolina Panthers,5.5,-140,120,5,Under,Teddy Bridgewater,Matt Rhule,CAR
+2021,Carolina Panthers,7.5,100,-120,5,Under,Sam Darnold,Matt Rhule,CAR
+2022,Carolina Panthers,6.5,-130,110,7,Over,Phillip Walker,Steve Wilks,CAR
+2023,Carolina Panthers,7.5,115,-135,2,Under,Bryce Young,Frank Reich,CAR
+2024,Carolina Panthers,5.5,-130,110,5,Under,Andy Dalton,Dave Canales,CAR
+2003,Chicago Bears,7.5,130,-160,7,Under,Kordell Stewart,Dick Jauron,CHI
+2004,Chicago Bears,6.5,-130,100,5,Under,Chad Hutchinson,Lovie Smith,CHI
+2005,Chicago Bears,7,100,-130,11,Over,Kyle Orton,Lovie Smith,CHI
+2006,Chicago Bears,9,-160,140,13,Over,Rex Grossman,Lovie Smith,CHI
+2007,Chicago Bears,10,115,-135,7,Under,Rex Grossman,Lovie Smith,CHI
+2009,Chicago Bears,8.5,-160,130,7,Under,Jay Cutler,Lovie Smith,CHI
+2010,Chicago Bears,8,105,-135,11,Over,Jay Cutler,Lovie Smith,CHI
+2011,Chicago Bears,8.5,130,-160,8,Under,Jay Cutler,Lovie Smith,CHI
+2012,Chicago Bears,9.5,-105,-125,10,Over,Jay Cutler,Lovie Smith,CHI
+2013,Chicago Bears,8.5,-150,120,8,Under,Jay Cutler,Marc Trestman,CHI
+2014,Chicago Bears,8.5,-150,130,5,Under,Jay Cutler,Marc Trestman,CHI
+2015,Chicago Bears,6.5,100,-120,6,Under,Jay Cutler,John Fox,CHI
+2016,Chicago Bears,7.5,145,-165,3,Under,Matt Barkley,John Fox,CHI
+2017,Chicago Bears,5.5,105,-125,5,Under,Mitch Trubisky,John Fox,CHI
+2018,Chicago Bears,7.5,115,-135,12,Over,Mitch Trubisky,Matt Nagy,CHI
+2019,Chicago Bears,9,-140,120,8,Under,Mitch Trubisky,Matt Nagy,CHI
+2020,Chicago Bears,8,115,-135,8,Push,Mitch Trubisky,Matt Nagy,CHI
+2021,Chicago Bears,7.5,120,-140,6,Under,Justin Fields,Matt Nagy,CHI
+2022,Chicago Bears,5.5,-130,100,3,Under,Justin Fields,Matt Eberflus,CHI
+2023,Chicago Bears,7.5,-140,120,7,Under,Justin Fields,Matt Eberflus,CHI
+2024,Chicago Bears,8.5,-165,145,5,Under,Caleb Williams,Matt Eberflus,CHI
+2003,Cincinnati Bengals,5.5,-130,100,8,Over,Jon Kitna,Marvin Lewis,CIN
+2004,Cincinnati Bengals,7.5,-115,-115,8,Over,Carson Palmer,Marvin Lewis,CIN
+2005,Cincinnati Bengals,8,-115,-115,11,Over,Carson Palmer,Marvin Lewis,CIN
+2006,Cincinnati Bengals,9,-105,-115,8,Under,Carson Palmer,Marvin Lewis,CIN
+2007,Cincinnati Bengals,9,-130,110,7,Under,Carson Palmer,Marvin Lewis,CIN
+2009,Cincinnati Bengals,7,-130,-110,10,Over,Carson Palmer,Marvin Lewis,CIN
+2010,Cincinnati Bengals,8,-140,110,4,Under,Carson Palmer,Marvin Lewis,CIN
+2011,Cincinnati Bengals,5.5,110,-140,9,Over,Andy Dalton,Marvin Lewis,CIN
+2012,Cincinnati Bengals,8,105,-135,10,Over,Andy Dalton,Marvin Lewis,CIN
+2013,Cincinnati Bengals,8.5,-170,133,11,Over,Andy Dalton,Marvin Lewis,CIN
+2014,Cincinnati Bengals,9,-110,-110,10,Over,Andy Dalton,Marvin Lewis,CIN
+2015,Cincinnati Bengals,8.5,100,-120,12,Over,Andy Dalton,Marvin Lewis,CIN
+2016,Cincinnati Bengals,9.5,100,-120,6,Under,Andy Dalton,Marvin Lewis,CIN
+2017,Cincinnati Bengals,8.5,120,-140,7,Under,Andy Dalton,Marvin Lewis,CIN
+2018,Cincinnati Bengals,7,-135,115,6,Under,Andy Dalton,Marvin Lewis,CIN
+2019,Cincinnati Bengals,6,130,-150,2,Under,Andy Dalton,Zac Taylor,CIN
+2020,Cincinnati Bengals,5.5,-150,130,4,Under,Joe Burrow,Zac Taylor,CIN
+2021,Cincinnati Bengals,6.5,-110,-110,10,Over,Joe Burrow,Zac Taylor,CIN
+2022,Cincinnati Bengals,9.5,-130,110,12,Over,Joe Burrow,Zac Taylor,CIN
+2023,Cincinnati Bengals,11,100,-120,9,Under,Joe Burrow,Zac Taylor,CIN
+2024,Cincinnati Bengals,10.5,100,-120,9,Under,Joe Burrow,Zac Taylor,CIN
+2003,Cleveland Browns,8.5,100,-130,5,Under,Kelly Holcomb,Butch Davis,CLE
+2004,Cleveland Browns,7.5,120,-150,4,Under,Jeff Garcia,Butch Davis,CLE
+2005,Cleveland Browns,5,115,-145,6,Over,Trent Dilfer,Romeo Crennel,CLE
+2006,Cleveland Browns,6.5,-175,155,4,Under,Charlie Frye,Romeo Crennel,CLE
+2007,Cleveland Browns,5.5,-160,140,10,Over,Derek Anderson,Romeo Crennel,CLE
+2009,Cleveland Browns,7,160,-190,5,Under,Brady Quinn,Eric Mangini,CLE
+2010,Cleveland Browns,5.5,-130,100,5,Under,Colt McCoy,Eric Mangini,CLE
+2011,Cleveland Browns,6.5,-160,130,4,Under,Colt McCoy,Pat Shurmur,CLE
+2012,Cleveland Browns,5.5,133,-170,5,Under,Brandon Weeden,Pat Shurmur,CLE
+2013,Cleveland Browns,6.5,-125,-105,4,Under,Jason Campbell,Rob Chudzinski,CLE
+2014,Cleveland Browns,6.5,110,-130,7,Over,Brian Hoyer,Mike Pettine,CLE
+2015,Cleveland Browns,6.5,155,-175,3,Under,Josh McCown,Mike Pettine,CLE
+2016,Cleveland Browns,4.5,-150,130,1,Under,Cody Kessler,Hue Jackson,CLE
+2017,Cleveland Browns,4.5,-180,150,0,Under,DeShone Kizer,Hue Jackson,CLE
+2018,Cleveland Browns,6,100,-120,7,Over,Baker Mayfield,Gregg Williams,CLE
+2019,Cleveland Browns,9,100,-120,6,Under,Baker Mayfield,Freddie Kitchens,CLE
+2020,Cleveland Browns,8.5,-110,-110,11,Over,Baker Mayfield,Kevin Stefanski,CLE
+2021,Cleveland Browns,10.5,-120,100,8,Under,Baker Mayfield,Kevin Stefanski,CLE
+2022,Cleveland Browns,8,-120,100,7,Under,Jacoby Brissett,Kevin Stefanski,CLE
+2023,Cleveland Browns,9,-140,120,11,Over,Deshaun Watson,Kevin Stefanski,CLE
+2024,Cleveland Browns,8.5,-145,125,3,Under,Jameis Winston,Kevin Stefanski,CLE
+2003,Dallas Cowboys,7.5,130,-160,10,Over,Quincy Carter,Bill Parcells,DAL
+2004,Dallas Cowboys,9,-115,-115,6,Under,Vinny Testaverde,Bill Parcells,DAL
+2005,Dallas Cowboys,8,-140,110,9,Over,Drew Bledsoe,Bill Parcells,DAL
+2006,Dallas Cowboys,9.5,-110,-110,9,Under,Tony Romo,Bill Parcells,DAL
+2007,Dallas Cowboys,9,-125,105,13,Over,Tony Romo,Wade Phillips,DAL
+2009,Dallas Cowboys,9,-125,-105,11,Over,Tony Romo,Wade Phillips,DAL
+2010,Dallas Cowboys,10,-135,105,6,Under,Jon Kitna,Jason Garrett,DAL
+2011,Dallas Cowboys,9,110,-140,8,Under,Tony Romo,Jason Garrett,DAL
+2012,Dallas Cowboys,8.5,-160,125,8,Under,Tony Romo,Jason Garrett,DAL
+2013,Dallas Cowboys,8.5,-115,-115,8,Under,Tony Romo,Jason Garrett,DAL
+2014,Dallas Cowboys,8,230,-270,12,Over,Tony Romo,Jason Garrett,DAL
+2015,Dallas Cowboys,9.5,110,-130,4,Under,Matt Cassel,Jason Garrett,DAL
+2016,Dallas Cowboys,8.5,110,-130,13,Over,Dak Prescott,Jason Garrett,DAL
+2017,Dallas Cowboys,9.5,120,-140,9,Under,Dak Prescott,Jason Garrett,DAL
+2018,Dallas Cowboys,8.5,120,-140,10,Over,Dak Prescott,Jason Garrett,DAL
+2019,Dallas Cowboys,9,-110,-110,8,Under,Dak Prescott,Jason Garrett,DAL
+2020,Dallas Cowboys,10,-110,-110,6,Under,Andy Dalton,Mike McCarthy,DAL
+2021,Dallas Cowboys,9,-120,100,12,Over,Dak Prescott,Mike McCarthy,DAL
+2022,Dallas Cowboys,10,120,-140,12,Over,Dak Prescott,Mike McCarthy,DAL
+2023,Dallas Cowboys,10,-130,110,12,Over,Dak Prescott,Mike McCarthy,DAL
+2024,Dallas Cowboys,10,115,-135,7,Under,Cooper Rush,Mike McCarthy,DAL
+2003,Denver Broncos,9.5,-120,-110,10,Over,Jake Plummer,Mike Shanahan,DEN
+2004,Denver Broncos,9,-115,-115,10,Over,Jake Plummer,Mike Shanahan,DEN
+2005,Denver Broncos,8.5,-140,110,13,Over,Jake Plummer,Mike Shanahan,DEN
+2006,Denver Broncos,10,-110,-110,9,Under,Jake Plummer,Mike Shanahan,DEN
+2007,Denver Broncos,9.5,-105,-115,7,Under,Jay Cutler,Mike Shanahan,DEN
+2009,Denver Broncos,6.5,105,-135,8,Over,Kyle Orton,Josh McDaniels,DEN
+2010,Denver Broncos,7,-130,100,4,Under,Kyle Orton,Josh McDaniels,DEN
+2011,Denver Broncos,6,-120,-110,8,Over,Tim Tebow,John Fox,DEN
+2012,Denver Broncos,8.5,-170,133,13,Over,Peyton Manning,John Fox,DEN
+2013,Denver Broncos,11.5,-105,-125,13,Over,Peyton Manning,John Fox,DEN
+2014,Denver Broncos,11.5,100,-120,12,Over,Peyton Manning,John Fox,DEN
+2015,Denver Broncos,10,-140,120,12,Over,Peyton Manning,Gary Kubiak,DEN
+2016,Denver Broncos,9.5,130,-150,9,Under,Trevor Siemian,Gary Kubiak,DEN
+2017,Denver Broncos,8,100,-120,5,Under,Trevor Siemian,Vance Joseph,DEN
+2018,Denver Broncos,7,-180,150,6,Under,Case Keenum,Vance Joseph,DEN
+2019,Denver Broncos,7,-130,110,7,Push,Joe Flacco,Vic Fangio,DEN
+2020,Denver Broncos,7.5,-130,110,5,Under,Drew Lock,Vic Fangio,DEN
+2021,Denver Broncos,9,100,-120,7,Under,Teddy Bridgewater,Vic Fangio,DEN
+2022,Denver Broncos,10,110,-130,5,Under,Russell Wilson,Nathaniel Hackett,DEN
+2023,Denver Broncos,8.5,110,-130,8,Under,Russell Wilson,Sean Payton,DEN
+2024,Denver Broncos,5.5,-170,150,10,Over,Bo Nix,Sean Payton,DEN
+2003,Detroit Lions,6,-140,110,5,Under,Joey Harrington,Steve Mariucci,DET
+2004,Detroit Lions,6.5,-130,100,6,Under,Joey Harrington,Steve Mariucci,DET
+2005,Detroit Lions,8,-130,100,5,Under,Joey Harrington,Steve Mariucci,DET
+2006,Detroit Lions,7,120,-140,3,Under,Jon Kitna,Rod Marinelli,DET
+2007,Detroit Lions,6,-110,-110,7,Over,Jon Kitna,Rod Marinelli,DET
+2009,Detroit Lions,4.5,-135,100,2,Under,Matthew Stafford,Jim Schwartz,DET
+2010,Detroit Lions,5,-155,125,6,Over,Shaun Hill,Jim Schwartz,DET
+2011,Detroit Lions,8,-145,115,10,Over,Matthew Stafford,Jim Schwartz,DET
+2012,Detroit Lions,9,105,-135,4,Under,Matthew Stafford,Jim Schwartz,DET
+2013,Detroit Lions,8,-150,120,7,Under,Matthew Stafford,Jim Schwartz,DET
+2014,Detroit Lions,8.5,110,-130,11,Over,Matthew Stafford,Jim Caldwell,DET
+2015,Detroit Lions,8.5,130,-150,7,Under,Matthew Stafford,Jim Caldwell,DET
+2016,Detroit Lions,7,-150,130,9,Over,Matthew Stafford,Jim Caldwell,DET
+2017,Detroit Lions,7.5,120,-140,9,Over,Matthew Stafford,Jim Caldwell,DET
+2018,Detroit Lions,7.5,-110,-110,6,Under,Matthew Stafford,Matt Patricia,DET
+2019,Detroit Lions,6.5,-150,130,3,Under,Matthew Stafford,Matt Patricia,DET
+2020,Detroit Lions,7,-130,110,5,Under,Matthew Stafford,Matt Patricia,DET
+2021,Detroit Lions,4.5,-130,110,3,Under,Jared Goff,Dan Campbell,DET
+2022,Detroit Lions,6.5,-150,130,9,Over,Jared Goff,Dan Campbell,DET
+2023,Detroit Lions,9.5,-120,100,12,Over,Jared Goff,Dan Campbell,DET
+2024,Detroit Lions,10.5,-130,110,15,Over,Jared Goff,Dan Campbell,DET
+2003,Green Bay Packers,10,130,-160,10,Push,Brett Favre,Mike Sherman,GB
+2004,Green Bay Packers,9.5,115,-145,10,Over,Brett Favre,Mike Sherman,GB
+2005,Green Bay Packers,8,110,-140,4,Under,Brett Favre,Mike Sherman,GB
+2006,Green Bay Packers,6,-160,140,8,Over,Brett Favre,Mike McCarthy,GB
+2007,Green Bay Packers,7.5,130,-150,13,Over,Brett Favre,Mike McCarthy,GB
+2009,Green Bay Packers,9,-130,100,11,Over,Aaron Rodgers,Mike McCarthy,GB
+2010,Green Bay Packers,9.5,-160,130,10,Over,Aaron Rodgers,Mike McCarthy,GB
+2011,Green Bay Packers,11.5,120,-150,15,Over,Aaron Rodgers,Mike McCarthy,GB
+2012,Green Bay Packers,12,160,-200,11,Under,Aaron Rodgers,Mike McCarthy,GB
+2013,Green Bay Packers,10.5,-105,-125,8,Under,Aaron Rodgers,Mike McCarthy,GB
+2014,Green Bay Packers,10.5,115,-135,12,Over,Aaron Rodgers,Mike McCarthy,GB
+2015,Green Bay Packers,11,140,-160,10,Under,Aaron Rodgers,Mike McCarthy,GB
+2016,Green Bay Packers,10.5,-170,150,10,Under,Aaron Rodgers,Mike McCarthy,GB
+2017,Green Bay Packers,10.5,120,-140,7,Under,Brett Hundley,Mike McCarthy,GB
+2018,Green Bay Packers,10,-120,100,6,Under,Aaron Rodgers,Mike McCarthy,GB
+2019,Green Bay Packers,9,-140,120,13,Over,Aaron Rodgers,Matt LaFleur,GB
+2020,Green Bay Packers,8.5,-120,100,13,Over,Aaron Rodgers,Matt LaFleur,GB
+2021,Green Bay Packers,10.5,-130,110,13,Over,Aaron Rodgers,Matt LaFleur,GB
+2022,Green Bay Packers,11,-130,110,8,Under,Aaron Rodgers,Matt LaFleur,GB
+2023,Green Bay Packers,7.5,-145,125,9,Over,Jordan Love,Matt LaFleur,GB
+2024,Green Bay Packers,10,100,-120,11,Over,Jordan Love,Matt LaFleur,GB
+2003,Houston Texans,5,-130,100,5,Push,David Carr,Dom Capers,HOU
+2004,Houston Texans,6.5,100,-130,7,Over,David Carr,Dom Capers,HOU
+2005,Houston Texans,7.5,100,-130,2,Under,David Carr,Dom Capers,HOU
+2006,Houston Texans,5.5,-130,110,6,Over,David Carr,Gary Kubiak,HOU
+2007,Houston Texans,6.5,100,-120,8,Over,Matt Schaub,Gary Kubiak,HOU
+2009,Houston Texans,8.5,110,-140,9,Over,Matt Schaub,Gary Kubiak,HOU
+2010,Houston Texans,8.5,-115,-115,6,Under,Matt Schaub,Gary Kubiak,HOU
+2011,Houston Texans,9,-145,115,10,Over,Matt Schaub,Gary Kubiak,HOU
+2012,Houston Texans,10,-190,150,12,Over,Matt Schaub,Gary Kubiak,HOU
+2013,Houston Texans,10.5,125,-160,2,Under,Case Keenum,Gary Kubiak,HOU
+2014,Houston Texans,7.5,-175,155,9,Over,Ryan Fitzpatrick,Bill O'Brien,HOU
+2015,Houston Texans,8.5,100,-120,9,Over,Brian Hoyer,Bill O'Brien,HOU
+2016,Houston Texans,8.5,-120,100,9,Over,Brock Osweiler,Bill O'Brien,HOU
+2017,Houston Texans,8.5,100,-120,4,Under,Tom Savage,Bill O'Brien,HOU
+2018,Houston Texans,8.5,-140,120,11,Over,Deshaun Watson,Bill O'Brien,HOU
+2019,Houston Texans,8.5,-115,-105,10,Over,Deshaun Watson,Bill O'Brien,HOU
+2020,Houston Texans,7.5,105,-125,4,Under,Deshaun Watson,Romeo Crennel,HOU
+2021,Houston Texans,4,110,-130,4,Push,Davis Mills,David Culley,HOU
+2022,Houston Texans,4.5,-120,100,3,Under,Davis Mills,Lovie Smith,HOU
+2023,Houston Texans,6.5,130,-150,10,Over,C.J. Stroud,DeMeco Ryans,HOU
+2024,Houston Texans,9.5,-140,120,10,Over,C.J. Stroud,DeMeco Ryans,HOU
+2003,Indianapolis Colts,8.5,-115,-115,12,Over,Peyton Manning,Tony Dungy,IND
+2004,Indianapolis Colts,10.5,120,-150,12,Over,Peyton Manning,Tony Dungy,IND
+2005,Indianapolis Colts,11.5,-110,-120,14,Over,Peyton Manning,Tony Dungy,IND
+2006,Indianapolis Colts,11.5,110,-130,12,Over,Peyton Manning,Tony Dungy,IND
+2007,Indianapolis Colts,10.5,-120,100,13,Over,Peyton Manning,Tony Dungy,IND
+2009,Indianapolis Colts,10,-115,-115,14,Over,Peyton Manning,Jim Caldwell,IND
+2010,Indianapolis Colts,10.5,-130,100,10,Under,Peyton Manning,Jim Caldwell,IND
+2011,Indianapolis Colts,,,,2,,Curtis Painter,Jim Caldwell,IND
+2012,Indianapolis Colts,5.5,-105,-125,11,Over,Andrew Luck,Chuck Pagano,IND
+2013,Indianapolis Colts,8.5,-110,-120,11,Over,Andrew Luck,Chuck Pagano,IND
+2014,Indianapolis Colts,9.5,110,-130,11,Over,Andrew Luck,Chuck Pagano,IND
+2015,Indianapolis Colts,10.5,-160,140,8,Under,Matt Hasselbeck,Chuck Pagano,IND
+2016,Indianapolis Colts,9,120,-140,8,Under,Andrew Luck,Chuck Pagano,IND
+2017,Indianapolis Colts,8,130,-150,4,Under,Jacoby Brissett,Chuck Pagano,IND
+2018,Indianapolis Colts,7.5,110,-130,10,Over,Andrew Luck,Frank Reich,IND
+2019,Indianapolis Colts,7.5,-110,-110,7,Under,Jacoby Brissett,Frank Reich,IND
+2020,Indianapolis Colts,9.5,-110,-110,11,Over,Philip Rivers,Frank Reich,IND
+2021,Indianapolis Colts,9,-120,100,9,Push,Carson Wentz,Frank Reich,IND
+2022,Indianapolis Colts,10,-120,100,4,Under,Matt Ryan,Frank Reich,IND
+2023,Indianapolis Colts,6.5,-120,100,9,Over,Gardner Minshew,Shane Steichen,IND
+2024,Indianapolis Colts,8.5,115,-135,8,Under,Joe Flacco,Shane Steichen,IND
+2003,Jacksonville Jaguars,7,100,-130,5,Under,Byron Leftwich,Jack Del Rio,JAX
+2004,Jacksonville Jaguars,7.5,-140,110,9,Over,Byron Leftwich,Jack Del Rio,JAX
+2005,Jacksonville Jaguars,8.5,-115,-115,12,Over,Byron Leftwich,Jack Del Rio,JAX
+2006,Jacksonville Jaguars,9,110,-130,8,Under,David Garrard,Jack Del Rio,JAX
+2007,Jacksonville Jaguars,9,100,-120,11,Over,David Garrard,Jack Del Rio,JAX
+2009,Jacksonville Jaguars,8,-135,105,7,Under,David Garrard,Jack Del Rio,JAX
+2010,Jacksonville Jaguars,7,-105,-125,8,Over,David Garrard,Jack Del Rio,JAX
+2011,Jacksonville Jaguars,6.5,-110,-120,5,Under,Blaine Gabbert,Jack Del Rio,JAX
+2012,Jacksonville Jaguars,5.5,-110,-120,2,Under,Blaine Gabbert,Mike Mularkey,JAX
+2013,Jacksonville Jaguars,5,-115,-115,4,Under,Chad Henne,Gus Bradley,JAX
+2014,Jacksonville Jaguars,5,-150,130,3,Under,Blake Bortles,Gus Bradley,JAX
+2015,Jacksonville Jaguars,5.5,-120,100,5,Under,Blake Bortles,Gus Bradley,JAX
+2016,Jacksonville Jaguars,7.5,-125,105,3,Under,Blake Bortles,Gus Bradley,JAX
+2017,Jacksonville Jaguars,6.5,-125,105,10,Over,Blake Bortles,Doug Marrone,JAX
+2018,Jacksonville Jaguars,9,-130,110,5,Under,Blake Bortles,Doug Marrone,JAX
+2019,Jacksonville Jaguars,8,-110,-110,6,Under,Gardner Minshew,Doug Marrone,JAX
+2020,Jacksonville Jaguars,4.5,-110,-110,1,Under,Gardner Minshew II,Doug Marrone,JAX
+2021,Jacksonville Jaguars,6.5,110,-130,3,Under,Trevor Lawrence,Urban Meyer,JAX
+2022,Jacksonville Jaguars,6.5,-120,100,9,Over,Trevor Lawrence,Doug Pederson,JAX
+2023,Jacksonville Jaguars,9.5,-140,120,9,Under,Trevor Lawrence,Doug Pederson,JAX
+2024,Jacksonville Jaguars,8.5,-110,-110,4,Under,Trevor Lawrence,Doug Pederson,JAX
+2003,Kansas City Chiefs,9,-130,100,13,Over,Trent Green,Dick Vermeil,KC
+2004,Kansas City Chiefs,10,100,-130,7,Under,Trent Green,Dick Vermeil,KC
+2005,Kansas City Chiefs,9,-115,-115,10,Over,Trent Green,Dick Vermeil,KC
+2006,Kansas City Chiefs,9.5,110,-130,9,Under,Damon Huard,Herm Edwards,KC
+2007,Kansas City Chiefs,7.5,100,-120,4,Under,Damon Huard,Herm Edwards,KC
+2009,Kansas City Chiefs,6,-125,-105,4,Under,Matt Cassel,Todd Haley,KC
+2010,Kansas City Chiefs,6.5,-115,-115,10,Over,Matt Cassel,Todd Haley,KC
+2011,Kansas City Chiefs,7.5,-115,-115,7,Under,Matt Cassel,Todd Haley,KC
+2012,Kansas City Chiefs,8,125,-160,2,Under,Brady Quinn,Romeo Crennel,KC
+2013,Kansas City Chiefs,7.5,-160,-125,11,Over,Alex Smith,Andy Reid,KC
+2014,Kansas City Chiefs,8,160,-180,9,Over,Alex Smith,Andy Reid,KC
+2015,Kansas City Chiefs,8.5,-150,130,11,Over,Alex Smith,Andy Reid,KC
+2016,Kansas City Chiefs,9.5,-140,120,12,Over,Alex Smith,Andy Reid,KC
+2017,Kansas City Chiefs,9,-120,100,10,Over,Alex Smith,Andy Reid,KC
+2018,Kansas City Chiefs,8.5,115,-135,12,Over,Patrick Mahomes,Andy Reid,KC
+2019,Kansas City Chiefs,10.5,-130,110,12,Over,Patrick Mahomes,Andy Reid,KC
+2020,Kansas City Chiefs,11.5,-120,100,14,Over,Patrick Mahomes,Andy Reid,KC
+2021,Kansas City Chiefs,12.5,105,-125,12,Under,Patrick Mahomes,Andy Reid,KC
+2022,Kansas City Chiefs,10.5,-150,130,14,Over,Patrick Mahomes,Andy Reid,KC
+2023,Kansas City Chiefs,11.5,-120,100,11,Under,Patrick Mahomes,Andy Reid,KC
+2024,Kansas City Chiefs,11.5,-110,-110,15,Over,Patrick Mahomes,Andy Reid,KC
+2003,St Louis Rams,9.5,-130,100,12,Over,Matt Hasselbeck,Mike Holmgren,LA
+2004,St Louis Rams,9.5,110,-140,8,Under,Matt Hasselbeck,Mike Holmgren,LA
+2005,St Louis Rams,8,-150,120,6,Under,Matt Hasselbeck,Mike Holmgren,LA
+2006,St Louis Rams,7,110,-130,8,Over,Matt Hasselbeck,Mike Holmgren,LA
+2007,St Louis Rams,7.5,100,-120,3,Under,Matt Hasselbeck,Mike Holmgren,LA
+2009,St Louis Rams,5.5,-150,120,1,Under,Matt Hasselbeck,Jim Mora,LA
+2010,St Louis Rams,4.5,-125,-105,7,Over,Matt Hasselbeck,Pete Carroll,LA
+2011,St Louis Rams,7.5,-120,-110,2,Under,Tarvaris Jackson,Pete Carroll,LA
+2012,St Louis Rams,6,-125,-105,7,Over,Russell Wilson,Pete Carroll,LA
+2013,St Louis Rams,7.5,-120,-110,7,Under,Russell Wilson,Pete Carroll,LA
+2014,St Louis Rams,7,120,-140,6,Under,Russell Wilson,Pete Carroll,LA
+2015,St Louis Rams,7.5,-110,-110,7,Under,Russell Wilson,Pete Carroll,LA
+2016,Los Angeles Rams,7.5,175,-200,4,Under,Derek Carr,Jack Del Rio,LA
+2017,Los Angeles Rams,6,140,-160,11,Over,Philip Rivers,Anthony Lynn,LA
+2018,Los Angeles Rams,10,-130,110,13,Over,Philip Rivers,Anthony Lynn,LA
+2019,Los Angeles Rams,10.5,125,-145,9,Under,Philip Rivers,Anthony Lynn,LA
+2020,Los Angeles Rams,8.5,110,-130,10,Over,Jared Goff,Sean McVay,LA
+2021,Los Angeles Rams,10.5,100,-120,12,Over,Matthew Stafford,Sean McVay,LA
+2022,Los Angeles Rams,10.5,100,-120,5,Under,Matthew Stafford,Sean McVay,LA
+2023,Los Angeles Rams,6.5,110,-130,10,Over,Matthew Stafford,Sean McVay,LA
+2024,Los Angeles Rams,8.5,-170,150,10,Over,Matthew Stafford,Sean McVay,LA
+2003,San Diego Chargers,8.5,120,-150,4,Under,Donovan McNabb,Andy Reid,LAC
+2004,San Diego Chargers,4.5,110,-140,12,Over,Donovan McNabb,Andy Reid,LAC
+2005,San Diego Chargers,8,-130,100,9,Over,Donovan McNabb,Andy Reid,LAC
+2006,San Diego Chargers,9,130,-150,14,Over,Donovan McNabb,Andy Reid,LAC
+2007,San Diego Chargers,10.5,-140,120,11,Over,Donovan McNabb,Andy Reid,LAC
+2009,San Diego Chargers,10,-140,110,13,Over,Donovan McNabb,Andy Reid,LAC
+2010,San Diego Chargers,10.5,-115,-115,9,Under,Michael Vick,Andy Reid,LAC
+2011,San Diego Chargers,11,115,-145,8,Under,Michael Vick,Andy Reid,LAC
+2012,San Diego Chargers,9,130,-165,7,Under,Michael Vick,Andy Reid,LAC
+2013,San Diego Chargers,7.5,120,-150,9,Over,Nick Foles,Chip Kelly,LAC
+2014,San Diego Chargers,8,-135,115,9,Over,Mark Sanchez,Chip Kelly,LAC
+2015,San Diego Chargers,8,-160,140,4,Under,Sam Bradford,Chip Kelly,LAC
+2016,San Diego Chargers,7,-185,165,5,Under,Ben Roethlisberger,Mike Tomlin,LAC
+2017,Los Angeles Chargers,7.5,-160,140,9,Over,Derek Carr,Jack Del Rio,LAC
+2018,Los Angeles Chargers,9.5,-130,110,12,Over,Derek Carr,Jon Gruden,LAC
+2019,Los Angeles Chargers,10,120,-140,5,Under,Derek Carr,Jon Gruden,LAC
+2020,Los Angeles Chargers,8,-105,-115,7,Under,Justin Herbert,Anthony Lynn,LAC
+2021,Los Angeles Chargers,9.5,-110,-110,9,Under,Justin Herbert,Brandon Staley,LAC
+2022,Los Angeles Chargers,10.5,100,-120,10,Under,Justin Herbert,Brandon Staley,LAC
+2023,Los Angeles Chargers,9.5,-130,110,5,Under,Justin Herbert,Brandon Staley,LAC
+2024,Los Angeles Chargers,9,115,-135,11,Over,Justin Herbert,Jim Harbaugh,LAC
+2003,Oakland Raiders,9.5,-150,120,4,Under,Aaron Brooks,Jim Haslett,LV
+2004,Oakland Raiders,7.5,-130,100,5,Under,Aaron Brooks,Jim Haslett,LV
+2005,Oakland Raiders,7.5,-145,115,4,Under,Aaron Brooks,Jim Haslett,LV
+2006,Oakland Raiders,6.5,105,-125,2,Under,Drew Brees,Sean Payton,LV
+2007,Oakland Raiders,5,-120,100,4,Under,Drew Brees,Sean Payton,LV
+2009,Oakland Raiders,6,110,-140,5,Under,Drew Brees,Sean Payton,LV
+2010,Oakland Raiders,6,-150,120,8,Over,Drew Brees,Sean Payton,LV
+2011,Oakland Raiders,6.5,-105,-125,8,Over,Drew Brees,Sean Payton,LV
+2012,Oakland Raiders,7,-115,-115,4,Under,Drew Brees,Joe Vitt,LV
+2013,Oakland Raiders,5.5,160,-200,4,Under,Drew Brees,Sean Payton,LV
+2014,Oakland Raiders,5,-130,110,3,Under,Drew Brees,Sean Payton,LV
+2015,Oakland Raiders,5.5,-160,140,7,Over,Drew Brees,Sean Payton,LV
+2016,Oakland Raiders,8.5,-110,-110,12,Over,Eli Manning,Ben McAdoo,LV
+2017,Oakland Raiders,9.5,100,-120,6,Under,Josh McCown,Todd Bowles,LV
+2018,Oakland Raiders,7.5,120,-140,4,Under,Sam Darnold,Todd Bowles,LV
+2019,Oakland Raiders,6,145,-170,7,Over,Sam Darnold,Adam Gase,LV
+2020,Las Vegas Raiders,7.5,115,-135,8,Over,Derek Carr,Jon Gruden,LV
+2021,Las Vegas Raiders,7.5,100,-120,10,Over,Derek Carr,Rich Bisaccia,LV
+2022,Las Vegas Raiders,8.5,-150,130,6,Under,Derek Carr,Josh McDaniels,LV
+2023,Las Vegas Raiders,6.5,110,-130,8,Over,Aidan O'Connell,Antonio Pierce,LV
+2024,Las Vegas Raiders,6.5,-125,105,4,Under,Gardner Minshew,Antonio Pierce,LV
+2003,Miami Dolphins,9.5,-145,115,10,Over,Rick Mirer,Bill Callahan,MIA
+2004,Miami Dolphins,9.5,110,-140,4,Under,Kerry Collins,Norv Turner,MIA
+2005,Miami Dolphins,5.5,-165,135,9,Over,Kerry Collins,Norv Turner,MIA
+2006,Miami Dolphins,9,-135,115,6,Under,Andrew Walter,Art Shell,MIA
+2007,Miami Dolphins,7,-120,100,1,Under,Josh McCown,Lane Kiffin,MIA
+2009,Miami Dolphins,7,-125,-105,7,Push,JaMarcus Russell,Tom Cable,MIA
+2010,Miami Dolphins,8.5,-125,-105,7,Under,Jason Campbell,Tom Cable,MIA
+2011,Miami Dolphins,7.5,115,-145,6,Under,Carson Palmer,Hue Jackson,MIA
+2012,Miami Dolphins,7,170,-220,7,Push,Carson Palmer,Dennis Allen,MIA
+2013,Miami Dolphins,8,120,-150,8,Push,Terrelle Pryor,Dennis Allen,MIA
+2014,Miami Dolphins,8,150,-170,8,Push,Derek Carr,Tony Sparano,MIA
+2015,Miami Dolphins,9,-160,140,6,Under,Derek Carr,Jack Del Rio,MIA
+2016,Miami Dolphins,7,120,-140,10,Over,Philip Rivers,Mike McCoy,MIA
+2017,Miami Dolphins,7,-130,110,6,Under,Jared Goff,Sean McVay,MIA
+2018,Miami Dolphins,6.5,-140,120,7,Over,Jared Goff,Sean McVay,MIA
+2019,Miami Dolphins,4.5,100,-120,5,Over,Jared Goff,Sean McVay,MIA
+2020,Miami Dolphins,6,-115,-105,10,Over,Tua Tagovailoa,Brian Flores,MIA
+2021,Miami Dolphins,9,-140,120,9,Push,Tua Tagovailoa,Brian Flores,MIA
+2022,Miami Dolphins,9,-130,110,9,Push,Tua Tagovailoa,Mike McDaniel,MIA
+2023,Miami Dolphins,9.5,100,-120,11,Over,Tua Tagovailoa,Mike McDaniel,MIA
+2024,Miami Dolphins,10,100,-120,8,Under,Tua Tagovailoa,Mike McDaniel,MIA
+2003,Minnesota Vikings,8,-130,100,9,Over,Drew Brees,Marty Schottenheimer,MIN
+2004,Minnesota Vikings,8.5,-140,110,8,Under,Drew Brees,Marty Schottenheimer,MIN
+2005,Minnesota Vikings,9,-135,105,9,Push,Drew Brees,Marty Schottenheimer,MIN
+2006,Minnesota Vikings,8,-120,100,6,Under,Philip Rivers,Marty Schottenheimer,MIN
+2007,Minnesota Vikings,6.5,-140,120,8,Over,Philip Rivers,Norv Turner,MIN
+2009,Minnesota Vikings,9.5,-125,105,12,Over,Philip Rivers,Norv Turner,MIN
+2010,Minnesota Vikings,9.5,-110,-120,6,Under,Philip Rivers,Norv Turner,MIN
+2011,Minnesota Vikings,7,-120,-110,3,Under,Philip Rivers,Norv Turner,MIN
+2012,Minnesota Vikings,6,-115,-115,10,Over,Philip Rivers,Norv Turner,MIN
+2013,Minnesota Vikings,7,-105,-125,5,Under,Philip Rivers,Mike McCoy,MIN
+2014,Minnesota Vikings,6,-175,155,7,Over,Philip Rivers,Mike McCoy,MIN
+2015,Minnesota Vikings,8,-150,130,11,Over,Philip Rivers,Mike McCoy,MIN
+2016,Minnesota Vikings,8.5,115,-135,8,Under,Case Keenum,Jeff Fisher,MIN
+2017,Minnesota Vikings,8.5,-130,110,13,Over,Jay Cutler,Adam Gase,MIN
+2018,Minnesota Vikings,10,-140,120,8,Under,Ryan Tannehill,Adam Gase,MIN
+2019,Minnesota Vikings,9,-125,105,10,Over,Ryan Fitzpatrick,Brian Flores,MIN
+2020,Minnesota Vikings,9,110,-130,7,Under,Kirk Cousins,Mike Zimmer,MIN
+2021,Minnesota Vikings,9,100,-120,8,Under,Kirk Cousins,Mike Zimmer,MIN
+2022,Minnesota Vikings,9.5,-110,-110,13,Over,Kirk Cousins,Kevin O'Connell,MIN
+2023,Minnesota Vikings,8.5,-130,110,7,Under,Kirk Cousins,Kevin O'Connell,MIN
+2024,Minnesota Vikings,6.5,-140,120,14,Over,Sam Darnold,Kevin O'Connell,MIN
+2003,New England Patriots,8.5,-160,130,14,Over,Marc Bulger,Mike Martz,NE
+2004,New England Patriots,10.5,100,-130,14,Over,Marc Bulger,Mike Martz,NE
+2005,New England Patriots,11,110,-140,10,Under,Marc Bulger,Joe Vitt,NE
+2006,New England Patriots,10.5,125,-145,12,Over,Marc Bulger,Scott Linehan,NE
+2007,New England Patriots,11.5,-110,-110,16,Over,Marc Bulger,Scott Linehan,NE
+2009,New England Patriots,11.5,-135,105,10,Under,Marc Bulger,Steve Spagnuolo,NE
+2010,New England Patriots,9.5,-120,-110,14,Over,Sam Bradford,Steve Spagnuolo,NE
+2011,New England Patriots,11.5,-115,-115,13,Over,Sam Bradford,Steve Spagnuolo,NE
+2012,New England Patriots,12,-115,-115,12,Push,Sam Bradford,Jeff Fisher,NE
+2013,New England Patriots,11,130,-165,12,Over,Kellen Clemens,Jeff Fisher,NE
+2014,New England Patriots,10.5,-180,160,12,Over,Austin Davis,Jeff Fisher,NE
+2015,New England Patriots,10.5,-130,110,12,Over,Nick Foles,Jeff Fisher,NE
+2016,New England Patriots,10.5,-120,100,14,Over,Ryan Tannehill,Adam Gase,NE
+2017,New England Patriots,12.5,100,-120,13,Over,Case Keenum,Mike Zimmer,NE
+2018,New England Patriots,11,-120,100,11,Push,Kirk Cousins,Mike Zimmer,NE
+2019,New England Patriots,11.5,-110,-110,12,Over,Kirk Cousins,Mike Zimmer,NE
+2020,New England Patriots,9,120,-140,7,Under,Cam Newton,Bill Belichick,NE
+2021,New England Patriots,9.5,-110,-110,10,Over,Mac Jones,Bill Belichick,NE
+2022,New England Patriots,8.5,100,-120,8,Under,Mac Jones,Bill Belichick,NE
+2023,New England Patriots,7.5,130,-150,4,Under,Mac Jones,Bill Belichick,NE
+2024,New England Patriots,4.5,-110,-110,4,Under,Drake Maye,Jerod Mayo,NE
+2003,New Orleans Saints,8,-130,100,8,Push,Jay Fiedler,Dave Wannstedt,NO
+2004,New Orleans Saints,7.5,-115,-115,8,Over,A.J. Feeley,Dave Wannstedt,NO
+2005,New Orleans Saints,7.5,-125,-105,3,Under,Gus Frerotte,Nick Saban,NO
+2006,New Orleans Saints,7,135,-155,10,Over,Joey Harrington,Nick Saban,NO
+2007,New Orleans Saints,9,-110,-110,7,Under,Cleo Lemon,Cam Cameron,NO
+2009,New Orleans Saints,9,-120,-110,13,Over,Chad Henne,Tony Sparano,NO
+2010,New Orleans Saints,10.5,100,-130,11,Over,Chad Henne,Tony Sparano,NO
+2011,New Orleans Saints,10,-150,120,13,Over,Matt Moore,Tony Sparano,NO
+2012,New Orleans Saints,9.5,-125,-105,7,Under,Ryan Tannehill,Joe Philbin,NO
+2013,New Orleans Saints,9,-150,120,11,Over,Ryan Tannehill,Joe Philbin,NO
+2014,New Orleans Saints,10,-160,140,7,Under,Ryan Tannehill,Joe Philbin,NO
+2015,New Orleans Saints,8.5,-130,110,7,Under,Ryan Tannehill,Joe Philbin,NO
+2016,New Orleans Saints,7,-140,120,7,Push,Sam Bradford,Mike Zimmer,NO
+2017,New Orleans Saints,8,100,-120,11,Over,Tom Brady,Bill Belichick,NO
+2018,New Orleans Saints,9.5,-140,120,13,Over,Tom Brady,Bill Belichick,NO
+2019,New Orleans Saints,10.5,130,-150,13,Over,Tom Brady,Bill Belichick,NO
+2020,New Orleans Saints,10.5,120,-140,12,Over,Drew Brees,Sean Payton,NO
+2021,New Orleans Saints,9,130,-150,9,Push,Jameis Winston,Sean Payton,NO
+2022,New Orleans Saints,9,100,-120,7,Under,Andy Dalton,Dennis Allen,NO
+2023,New Orleans Saints,9.5,-110,-110,9,Under,Derek Carr,Dennis Allen,NO
+2024,New Orleans Saints,7.5,-110,-110,5,Under,Derek Carr,Dennis Allen,NO
+2003,New York Giants,8.5,-145,115,4,Under,Daunte Culpepper,Mike Tice,NYG
+2004,New York Giants,6,-135,105,6,Push,Daunte Culpepper,Mike Tice,NYG
+2005,New York Giants,6.5,-120,-110,11,Over,Brad Johnson,Mike Tice,NYG
+2006,New York Giants,9,115,-135,8,Under,Brad Johnson,Brad Childress,NYG
+2007,New York Giants,8,-110,-110,10,Over,Tarvaris Jackson,Brad Childress,NYG
+2009,New York Giants,10,-120,-110,8,Under,Brett Favre,Brad Childress,NYG
+2010,New York Giants,9,-110,-120,10,Over,Brett Favre,Brad Childress,NYG
+2011,New York Giants,9.5,130,-160,9,Under,Christian Ponder,Leslie Frazier,NYG
+2012,New York Giants,9,-140,110,9,Push,Christian Ponder,Leslie Frazier,NYG
+2013,New York Giants,9,130,-165,7,Under,Christian Ponder,Leslie Frazier,NYG
+2014,New York Giants,8,130,-150,6,Under,Teddy Bridgewater,Mike Zimmer,NYG
+2015,New York Giants,8,150,-170,6,Under,Teddy Bridgewater,Mike Zimmer,NYG
+2016,New York Giants,8.5,100,-120,11,Over,Tom Brady,Bill Belichick,NYG
+2017,New York Giants,9,-130,110,3,Under,Drew Brees,Sean Payton,NYG
+2018,New York Giants,7,-140,120,5,Under,Drew Brees,Sean Payton,NYG
+2019,New York Giants,6,105,-125,4,Under,Drew Brees,Sean Payton,NYG
+2020,New York Giants,6.5,120,-140,6,Under,Daniel Jones,Joe Judge,NYG
+2021,New York Giants,7,100,-120,4,Under,Daniel Jones,Joe Judge,NYG
+2022,New York Giants,7,120,-140,9,Over,Daniel Jones,Brian Daboll,NYG
+2023,New York Giants,7.5,-120,100,6,Under,Daniel Jones,Brian Daboll,NYG
+2024,New York Giants,6.5,130,-150,3,Under,Daniel Jones,Brian Daboll,NYG
+2003,New York Jets,9,-115,-115,6,Under,Tom Brady,Bill Belichick,NYJ
+2004,New York Jets,9,120,-150,10,Over,Tom Brady,Bill Belichick,NYJ
+2005,New York Jets,9,-125,-105,4,Under,Tom Brady,Bill Belichick,NYJ
+2006,New York Jets,6.5,130,-150,10,Over,Tom Brady,Bill Belichick,NYJ
+2007,New York Jets,8,150,-170,4,Under,Tom Brady,Bill Belichick,NYJ
+2009,New York Jets,7,-130,100,9,Over,Tom Brady,Bill Belichick,NYJ
+2010,New York Jets,9.5,-125,-105,11,Over,Tom Brady,Bill Belichick,NYJ
+2011,New York Jets,10,105,-135,8,Under,Tom Brady,Bill Belichick,NYJ
+2012,New York Jets,8.5,125,-160,6,Under,Tom Brady,Bill Belichick,NYJ
+2013,New York Jets,6.5,160,-200,8,Over,Tom Brady,Bill Belichick,NYJ
+2014,New York Jets,7,-125,105,4,Under,Tom Brady,Bill Belichick,NYJ
+2015,New York Jets,7.5,110,-130,10,Over,Tom Brady,Bill Belichick,NYJ
+2016,New York Jets,8,150,-170,5,Under,Drew Brees,Sean Payton,NYJ
+2017,New York Jets,3.5,125,-145,5,Over,Eli Manning,Ben McAdoo,NYJ
+2018,New York Jets,6,110,-130,4,Under,Eli Manning,Pat Shurmur,NYJ
+2019,New York Jets,7.5,-110,-110,7,Under,Daniel Jones,Pat Shurmur,NYJ
+2020,New York Jets,6.5,120,-140,2,Under,Sam Darnold,Adam Gase,NYJ
+2021,New York Jets,6,110,-130,4,Under,Zach Wilson,Robert Saleh,NYJ
+2022,New York Jets,5.5,-120,100,7,Over,Zach Wilson,Robert Saleh,NYJ
+2023,New York Jets,9.5,-125,105,7,Under,Zach Wilson,Robert Saleh,NYJ
+2024,New York Jets,9.5,-140,120,5,Under,Aaron Rodgers,Robert Saleh,NYJ
+2003,Philadelphia Eagles,10.5,130,-160,12,Over,Kerry Collins,Jim Fassel,PHI
+2004,Philadelphia Eagles,10.5,100,-130,13,Over,Kurt Warner,Tom Coughlin,PHI
+2005,Philadelphia Eagles,11.5,-110,-120,6,Under,Eli Manning,Tom Coughlin,PHI
+2006,Philadelphia Eagles,8.5,-135,115,10,Over,Eli Manning,Tom Coughlin,PHI
+2007,Philadelphia Eagles,9,-140,120,8,Under,Eli Manning,Tom Coughlin,PHI
+2009,Philadelphia Eagles,9.5,-145,115,11,Over,Eli Manning,Tom Coughlin,PHI
+2010,Philadelphia Eagles,8.5,110,-140,10,Over,Eli Manning,Tom Coughlin,PHI
+2011,Philadelphia Eagles,10.5,-150,120,8,Under,Eli Manning,Tom Coughlin,PHI
+2012,Philadelphia Eagles,10,110,-140,4,Under,Eli Manning,Tom Coughlin,PHI
+2013,Philadelphia Eagles,7.5,100,-130,10,Over,Eli Manning,Tom Coughlin,PHI
+2014,Philadelphia Eagles,9,-150,130,10,Over,Eli Manning,Tom Coughlin,PHI
+2015,Philadelphia Eagles,10,-130,110,7,Under,Eli Manning,Tom Coughlin,PHI
+2016,Philadelphia Eagles,6.5,130,-150,7,Over,Ryan Fitzpatrick,Todd Bowles,PHI
+2017,Philadelphia Eagles,8.5,-120,100,13,Over,Carson Wentz,Doug Pederson,PHI
+2018,Philadelphia Eagles,10.5,130,-150,9,Under,Carson Wentz,Doug Pederson,PHI
+2019,Philadelphia Eagles,10,-150,130,9,Under,Carson Wentz,Doug Pederson,PHI
+2020,Philadelphia Eagles,9.5,130,-150,4,Under,Carson Wentz,Doug Pederson,PHI
+2021,Philadelphia Eagles,6.5,-150,130,9,Over,Jalen Hurts,Nick Sirianni,PHI
+2022,Philadelphia Eagles,10,110,-130,14,Over,Jalen Hurts,Nick Sirianni,PHI
+2023,Philadelphia Eagles,11.5,105,-125,11,Under,Jalen Hurts,Nick Sirianni,PHI
+2024,Philadelphia Eagles,10.5,-150,130,14,Over,Jalen Hurts,Nick Sirianni,PHI
+2003,Pittsburgh Steelers,9.5,-150,120,6,Under,Chad Pennington,Herm Edwards,PIT
+2004,Pittsburgh Steelers,7.5,100,-130,15,Over,Chad Pennington,Herm Edwards,PIT
+2005,Pittsburgh Steelers,9.5,-150,120,11,Over,Brooks Bollinger,Herm Edwards,PIT
+2006,Pittsburgh Steelers,10.5,-110,-120,8,Under,Chad Pennington,Eric Mangini,PIT
+2007,Pittsburgh Steelers,9,115,-135,10,Over,Chad Pennington,Eric Mangini,PIT
+2009,Pittsburgh Steelers,10.5,-125,-105,9,Under,Mark Sanchez,Rex Ryan,PIT
+2010,Pittsburgh Steelers,8.5,-110,-120,12,Over,Mark Sanchez,Rex Ryan,PIT
+2011,Pittsburgh Steelers,10.5,-120,-110,12,Over,Mark Sanchez,Rex Ryan,PIT
+2012,Pittsburgh Steelers,10,-125,-105,8,Under,Mark Sanchez,Rex Ryan,PIT
+2013,Pittsburgh Steelers,9,-115,-115,8,Under,Geno Smith,Rex Ryan,PIT
+2014,Pittsburgh Steelers,8.5,-140,120,11,Over,Geno Smith,Rex Ryan,PIT
+2015,Pittsburgh Steelers,8.5,-110,-110,10,Over,Ryan Fitzpatrick,Todd Bowles,PIT
+2016,Pittsburgh Steelers,10.5,110,-130,11,Over,Carson Wentz,Doug Pederson,PIT
+2017,Pittsburgh Steelers,10.5,-150,130,13,Over,Ben Roethlisberger,Mike Tomlin,PIT
+2018,Pittsburgh Steelers,10.5,125,-145,9,Under,Ben Roethlisberger,Mike Tomlin,PIT
+2019,Pittsburgh Steelers,9.5,-110,-110,8,Under,Mason Rudolph,Mike Tomlin,PIT
+2020,Pittsburgh Steelers,9.5,100,-120,12,Over,Ben Roethlisberger,Mike Tomlin,PIT
+2021,Pittsburgh Steelers,8.5,110,-130,9,Over,Ben Roethlisberger,Mike Tomlin,PIT
+2022,Pittsburgh Steelers,7.5,-125,105,9,Over,Kenny Pickett,Mike Tomlin,PIT
+2023,Pittsburgh Steelers,9,100,-120,10,Over,Kenny Pickett,Mike Tomlin,PIT
+2024,Pittsburgh Steelers,8,-140,120,10,Over,Russell Wilson,Mike Tomlin,PIT
+2003,Seattle Seahawks,7.5,-180,140,10,Over,Jeff Garcia,Dennis Erickson,SEA
+2004,Seattle Seahawks,9,100,-130,9,Push,Tim Rattay,Dennis Erickson,SEA
+2005,Seattle Seahawks,9,100,-130,13,Over,Alex Smith,Mike Nolan,SEA
+2006,Seattle Seahawks,10.5,110,-130,9,Under,Alex Smith,Mike Nolan,SEA
+2007,Seattle Seahawks,9,120,-140,10,Over,Alex Smith,Mike Nolan,SEA
+2009,Seattle Seahawks,7.5,-175,145,5,Under,Alex Smith,Mike Singletary,SEA
+2010,Seattle Seahawks,7,110,-140,7,Push,Alex Smith,Mike Singletary,SEA
+2011,Seattle Seahawks,6,120,-150,7,Over,Alex Smith,Jim Harbaugh,SEA
+2012,Seattle Seahawks,7.5,-130,100,11,Over,Alex Smith,Jim Harbaugh,SEA
+2013,Seattle Seahawks,10.5,-140,110,13,Over,Colin Kaepernick,Jim Harbaugh,SEA
+2014,Seattle Seahawks,11,-110,-110,12,Over,Colin Kaepernick,Jim Harbaugh,SEA
+2015,Seattle Seahawks,11,-120,100,10,Under,Blaine Gabbert,Jim Tomsula,SEA
+2016,Seattle Seahawks,10.5,-145,125,10,Under,Russell Wilson,Pete Carroll,SEA
+2017,Seattle Seahawks,10.5,-130,110,9,Under,Russell Wilson,Pete Carroll,SEA
+2018,Seattle Seahawks,7.5,100,-120,10,Over,Russell Wilson,Pete Carroll,SEA
+2019,Seattle Seahawks,9,100,-120,11,Over,Russell Wilson,Pete Carroll,SEA
+2020,Seattle Seahawks,9.5,100,-120,12,Over,Russell Wilson,Pete Carroll,SEA
+2021,Seattle Seahawks,9.5,-150,130,7,Under,Russell Wilson,Pete Carroll,SEA
+2022,Seattle Seahawks,5.5,-125,105,9,Over,Geno Smith,Pete Carroll,SEA
+2023,Seattle Seahawks,9,100,-120,9,Push,Geno Smith,Pete Carroll,SEA
+2024,Seattle Seahawks,7.5,-160,140,10,Over,Geno Smith,Mike Macdonald,SEA
+2003,San Francisco 49ers,9.5,115,-145,7,Under,Tommy Maddox,Bill Cowher,SF
+2004,San Francisco 49ers,5,-130,100,2,Under,Ben Roethlisberger,Bill Cowher,SF
+2005,San Francisco 49ers,4.5,100,-130,4,Under,Ben Roethlisberger,Bill Cowher,SF
+2006,San Francisco 49ers,5,100,-120,7,Over,Ben Roethlisberger,Bill Cowher,SF
+2007,San Francisco 49ers,7.5,-145,125,5,Under,Ben Roethlisberger,Mike Tomlin,SF
+2009,San Francisco 49ers,7,-140,110,8,Over,Ben Roethlisberger,Mike Tomlin,SF
+2010,San Francisco 49ers,9,-115,-115,6,Under,Ben Roethlisberger,Mike Tomlin,SF
+2011,San Francisco 49ers,7.5,-105,-125,13,Over,Ben Roethlisberger,Mike Tomlin,SF
+2012,San Francisco 49ers,10,110,-140,11,Over,Ben Roethlisberger,Mike Tomlin,SF
+2013,San Francisco 49ers,11.5,150,-190,12,Over,Ben Roethlisberger,Mike Tomlin,SF
+2014,San Francisco 49ers,10.5,145,-165,8,Under,Ben Roethlisberger,Mike Tomlin,SF
+2015,San Francisco 49ers,6.5,155,-175,5,Under,Ben Roethlisberger,Mike Tomlin,SF
+2016,San Francisco 49ers,5.5,110,-130,2,Under,Colin Kaepernick,Chip Kelly,SF
+2017,San Francisco 49ers,5,100,-120,6,Over,Brian Hoyer,Kyle Shanahan,SF
+2018,San Francisco 49ers,8.5,130,-150,4,Under,Nick Mullens,Kyle Shanahan,SF
+2019,San Francisco 49ers,8,-140,120,13,Over,Jimmy Garoppolo,Kyle Shanahan,SF
+2020,San Francisco 49ers,10.5,120,-140,6,Under,Nick Mullens,Kyle Shanahan,SF
+2021,San Francisco 49ers,10.5,100,-120,10,Under,Jimmy Garoppolo,Kyle Shanahan,SF
+2022,San Francisco 49ers,10,-110,-110,13,Over,Jimmy Garoppolo,Kyle Shanahan,SF
+2023,San Francisco 49ers,11,120,-140,12,Over,Brock Purdy,Kyle Shanahan,SF
+2024,San Francisco 49ers,11.5,140,-160,6,Under,Brock Purdy,Kyle Shanahan,SF
+2003,Tampa Bay Buccaneers,10.5,-115,-115,7,Under,Brad Johnson,Jon Gruden,TB
+2004,Tampa Bay Buccaneers,9,-130,100,5,Under,Brian Griese,Jon Gruden,TB
+2005,Tampa Bay Buccaneers,7,-115,-115,11,Over,Chris Simms,Jon Gruden,TB
+2006,Tampa Bay Buccaneers,8,100,-120,4,Under,Bruce Gradkowski,Jon Gruden,TB
+2007,Tampa Bay Buccaneers,7,-110,-110,9,Over,Jeff Garcia,Jon Gruden,TB
+2009,Tampa Bay Buccaneers,6.5,140,-170,3,Under,Josh Freeman,Raheem Morris,TB
+2010,Tampa Bay Buccaneers,6,100,-130,10,Over,Josh Freeman,Raheem Morris,TB
+2011,Tampa Bay Buccaneers,8,120,-150,4,Under,Josh Freeman,Raheem Morris,TB
+2012,Tampa Bay Buccaneers,6,-140,110,7,Over,Josh Freeman,Greg Schiano,TB
+2013,Tampa Bay Buccaneers,7.5,-145,115,4,Under,Mike Glennon,Greg Schiano,TB
+2014,Tampa Bay Buccaneers,7,-120,100,2,Under,Josh McCown,Lovie Smith,TB
+2015,Tampa Bay Buccaneers,6,-150,130,6,Push,Jameis Winston,Lovie Smith,TB
+2016,Tampa Bay Buccaneers,7,-140,120,9,Over,Jameis Winston,Dirk Koetter,TB
+2017,Tampa Bay Buccaneers,8.5,-120,100,5,Under,Jameis Winston,Dirk Koetter,TB
+2018,Tampa Bay Buccaneers,6.5,130,-150,5,Under,Jameis Winston,Dirk Koetter,TB
+2019,Tampa Bay Buccaneers,6.5,-110,-110,7,Over,Jameis Winston,Bruce Arians,TB
+2020,Tampa Bay Buccaneers,9.5,-125,105,11,Over,Tom Brady,Bruce Arians,TB
+2021,Tampa Bay Buccaneers,12,-120,100,13,Over,Tom Brady,Bruce Arians,TB
+2022,Tampa Bay Buccaneers,11,120,-140,8,Under,Tom Brady,Todd Bowles,TB
+2023,Tampa Bay Buccaneers,6,-150,130,9,Over,Baker Mayfield,Todd Bowles,TB
+2024,Tampa Bay Buccaneers,7.5,-140,120,10,Over,Baker Mayfield,Todd Bowles,TB
+2003,Tennessee Titans,9.5,-135,105,12,Over,Steve McNair,Jeff Fisher,TEN
+2004,Tennessee Titans,9.5,-130,100,5,Under,Billy Volek,Jeff Fisher,TEN
+2005,Tennessee Titans,6.5,-115,-115,4,Under,Steve McNair,Jeff Fisher,TEN
+2006,Tennessee Titans,5.5,120,-140,8,Over,Vince Young,Jeff Fisher,TEN
+2007,Tennessee Titans,7,105,-125,10,Over,Vince Young,Jeff Fisher,TEN
+2009,Tennessee Titans,9,-105,-125,8,Under,Vince Young,Jeff Fisher,TEN
+2010,Tennessee Titans,8,-130,100,6,Under,Vince Young,Jeff Fisher,TEN
+2011,Tennessee Titans,6.5,-130,100,9,Over,Matt Hasselbeck,Mike Munchak,TEN
+2012,Tennessee Titans,7,-145,115,6,Under,Jake Locker,Mike Munchak,TEN
+2013,Tennessee Titans,6.5,-115,-115,7,Over,Ryan Fitzpatrick,Mike Munchak,TEN
+2014,Tennessee Titans,7,-140,120,2,Under,Zach Mettenberger,Ken Whisenhunt,TEN
+2015,Tennessee Titans,5.5,-200,180,3,Under,Marcus Mariota,Ken Whisenhunt,TEN
+2016,Tennessee Titans,6,-150,130,9,Over,Marcus Mariota,Mike Mularkey,TEN
+2017,Tennessee Titans,9,-110,-110,9,Push,Marcus Mariota,Mike Mularkey,TEN
+2018,Tennessee Titans,8,-110,-110,9,Over,Marcus Mariota,Mike Vrabel,TEN
+2019,Tennessee Titans,8,120,-140,9,Over,Ryan Tannehill,Mike Vrabel,TEN
+2020,Tennessee Titans,8.5,-130,110,11,Over,Ryan Tannehill,Mike Vrabel,TEN
+2021,Tennessee Titans,9.5,-130,110,12,Over,Ryan Tannehill,Mike Vrabel,TEN
+2022,Tennessee Titans,9,120,-140,7,Under,Ryan Tannehill,Mike Vrabel,TEN
+2023,Tennessee Titans,7.5,-120,100,6,Under,Will Levis,Mike Vrabel,TEN
+2024,Tennessee Titans,6.5,120,-140,3,Under,Mason Rudolph,Brian Callahan,TEN
+2003,Washington Redskins,7.5,-150,120,5,Under,Patrick Ramsey,Steve Spurrier,WAS
+2004,Washington Redskins,9,100,-130,6,Under,Mark Brunell,Joe Gibbs,WAS
+2005,Washington Redskins,7.5,-115,-115,10,Over,Mark Brunell,Joe Gibbs,WAS
+2006,Washington Redskins,9,-140,120,5,Under,Mark Brunell,Joe Gibbs,WAS
+2007,Washington Redskins,7.5,140,-160,9,Over,Jason Campbell,Joe Gibbs,WAS
+2009,Washington Redskins,8.5,120,-150,4,Under,Jason Campbell,Jim Zorn,WAS
+2010,Washington Redskins,7.5,100,-130,6,Under,Donovan McNabb,Mike Shanahan,WAS
+2011,Washington Redskins,6,-125,-105,5,Under,Rex Grossman,Mike Shanahan,WAS
+2012,Washington Redskins,6.5,115,-145,10,Over,Robert Griffin,Mike Shanahan,WAS
+2013,Washington Redskins,8,-125,-105,3,Under,Robert Griffin,Mike Shanahan,WAS
+2014,Washington Redskins,7.5,-120,100,4,Under,Robert Griffin,Jay Gruden,WAS
+2015,Washington Redskins,6,-130,110,9,Over,Kirk Cousins,Jay Gruden,WAS
+2016,Washington Redskins,7.5,-120,100,8,Over,Kirk Cousins,Jay Gruden,WAS
+2017,Washington Redskins,7.5,120,-140,7,Under,Kirk Cousins,Jay Gruden,WAS
+2018,Washington Redskins,7,-130,110,7,Push,Alex Smith,Jay Gruden,WAS
+2019,Washington Redskins,6,130,-150,3,Under,Case Keenum,Bill Callahan,WAS
+2020,Washington Football Team,5,-130,110,7,Over,Alex Smith,Ron Rivera,WAS
+2021,Washington Football Team,8.5,-130,110,7,Under,Taylor Heinicke,Ron Rivera,WAS
+2022,Washington Commanders,7.5,-130,110,8,Over,Taylor Heinicke,Ron Rivera,WAS
+2023,Washington Commanders,6.5,105,-125,4,Under,Sam Howell,Ron Rivera,WAS
+2024,Washington Commanders,6.5,-110,-110,12,Over,Jayden Daniels,Dan Quinn,WAS
