@@ -1,0 +1,395 @@
+---
+title: "Data_Modeling"
+output: html_document
+---
+
+```{r}
+library(brms)
+library(dplyr)
+library(tidyverse)
+library(stringr)
+```
+
+```{r Load Data}
+data <- read.csv('Cleaned_Dataset.csv')
+```
+
+
+```{r Calculate ELO}
+# TODO
+# [x] Team ELO
+####### NEXT STEPS
+# [x] Split Data to Train / Test
+# [] Simulate Scoring Types and Games and Get Validity Metric
+
+```
+
+
+```{r rem_nulls}
+data <- data %>%
+  mutate(
+    home_team = str_trim(home_team),
+    away_team = str_trim(away_team)
+  )
+
+```
+
+
+```{r ELO}
+probability_function <- function(r1, r2) {
+  return(1.0 / (1 + 10^((r1 - r2) / 400)))
+}
+
+elo_function <- function(Ra, Rb, K, outcome) {
+  Pa <- probability_function(Rb, Ra)
+  Pb <- probability_function(Ra, Rb)
+  
+  Ra_new <- Ra + K * (outcome - Pa)
+  Rb_new <- Rb + K * ((1 - outcome) - Pb)
+  
+  return(list(Ra = Ra_new, Rb = Rb_new))
+}
+
+team_list <- data %>%
+  select(home_team) %>%
+  distinct(home_team) %>%
+  arrange(home_team)
+
+team_elos <- setNames(rep(1400, nrow(team_list)), team_list$home_team)
+
+data$home_elo <- NA_real_
+data$away_elo <- NA_real_
+
+K <- 40
+
+reset_elo_each_season <- function(data, elo_function, K = 30, starting_elo = 1400) {
+  # Ensure data is sorted chronologically
+  data <- data %>% arrange(season, game_id)
+  
+  # Initialize team ELOs
+  team_elos <- list()
+  
+  # Track the current season to reset ELOs when it changes
+  current_season <- NULL
+  
+  # Initialize ELO columns
+  data$home_elo <- NA_real_
+  data$away_elo <- NA_real_
+  
+  for (gid in unique(data$game_id)) {
+    game_rows <- data %>% filter(game_id == gid)
+    
+    # Skip if missing teams
+    home_team <- game_rows$home_team[1]
+    away_team <- game_rows$away_team[1]
+    game_season <- game_rows$season[1]
+    
+    if (home_team == "" || away_team == "" || is.na(home_team) || is.na(away_team)) next
+    
+    # Reset ELOs at the start of a new season
+    if (is.null(current_season) || game_season != current_season) {
+      current_season <- game_season
+      team_elos <- list()
+    }
+    
+    # Get current ELOs or initialize
+    if (is.null(team_elos[[home_team]])) team_elos[[home_team]] <- starting_elo
+    if (is.null(team_elos[[away_team]])) team_elos[[away_team]] <- starting_elo
+    home_elo <- team_elos[[home_team]]
+    away_elo <- team_elos[[away_team]]
+    
+    # Store ELOs in the full train_data
+    data$home_elo[data$game_id == gid] <- home_elo
+    data$away_elo[data$game_id == gid] <- away_elo
+    
+    # Get scores
+    home_score <- game_rows$home_score[1]
+    away_score <- game_rows$away_score[1]
+    
+    if (is.na(home_score) || is.na(away_score)) next
+    
+    # Calculate outcome from posteam's perspective
+    outcome <- ifelse(home_score > away_score, 1, 0)
+    
+    # Update ELOs using the function
+    updated <- elo_function(home_elo, away_elo, K = K, outcome = outcome)
+    team_elos[[home_team]] <- updated$Ra
+    team_elos[[away_team]] <- updated$Rb
+  }
+  
+  return(data)
+}
+
+data <- reset_elo_each_season(data, elo_function, K)
+```
+
+
+```{r set_games_to_ignore}
+non_desired_games <- c('_01', '_02_', '_03_', '_04_')
+```
+
+
+
+```{r first_four_featuring}
+elo_scaler <- scale(c(data$home_elo, data$away_elo))
+elo_mean <- attr(elo_scaler, "scaled:center")
+elo_sd <- attr(elo_scaler, "scaled:scale")
+
+data$home_elo_z <- (data$home_elo - elo_mean)/elo_sd
+data$away_elo_z <- (data$away_elo - elo_mean)/elo_sd
+
+# Filter to first four weeks
+first_four <- data %>%
+  filter(grepl(paste(non_desired_games, collapse = "|"), game_id))
+
+# From posteam perspective
+first_four_posteam <- first_four %>%
+  group_by(season, team = home_team) %>%
+  summarise(
+    tot_td = sum(touchdown, na.rm = TRUE),
+    tot_td_against = sum(touchdown_away, na.rm = TRUE),
+    tot_exp = sum(extra_point_good, na.rm = TRUE),
+    tot_exp_against = sum(extra_point_good_away, na.rm = TRUE),
+    tot_fg = sum(field_goal_made, na.rm = TRUE),
+    tot_fg_against = sum(field_goal_made_away, na.rm = TRUE),
+    tot_2p = sum(two_point_success, na.rm = TRUE),
+    tot_2p_against = sum(two_point_success_away, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# From opponent perspective (flipping the roles)
+first_four_opp <- first_four %>%
+  group_by(season, team = away_team) %>%
+  summarise(
+    tot_td = sum(touchdown_away, na.rm = TRUE),
+    tot_td_against = sum(touchdown, na.rm = TRUE),
+    tot_exp = sum(extra_point_good_away, na.rm = TRUE),
+    tot_exp_against = sum(extra_point_good, na.rm = TRUE),
+    tot_fg = sum(field_goal_made_away, na.rm = TRUE),
+    tot_fg_against = sum(field_goal_made, na.rm = TRUE),
+    tot_2p = sum(two_point_success_away, na.rm = TRUE),
+    tot_2p_against = sum(two_point_success, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Combine and compute averages
+first_four_scores <- bind_rows(first_four_posteam, first_four_opp) %>%
+  group_by(season, team) %>%
+  summarise(
+    avg_td = sum(tot_td, na.rm = TRUE) / 4,
+    avg_td_against = sum(tot_td_against, na.rm = TRUE) / 4,
+    avg_exp = sum(tot_exp, na.rm = TRUE) / 4,
+    avg_exp_against = sum(tot_exp_against, na.rm = TRUE) / 4,
+    avg_fg = sum(tot_fg, na.rm = TRUE) / 4,
+    avg_fg_against = sum(tot_fg_against, na.rm = TRUE) / 4,
+    avg_2p = sum(tot_2p, na.rm = TRUE) / 4,
+    avg_2p_against = sum(tot_2p_against, na.rm = TRUE) / 4,
+    .groups = "drop"
+  )
+
+```
+
+```{r add_ranks}
+beg_rank_data <- data %>%
+  merge(
+    first_four_scores,
+    by.x = c('season', 'home_team'),
+    by.y = c('season', 'team')
+  ) %>%
+  merge(
+    first_four_scores,
+    by.x = c('season', 'away_team'),
+    by.y = c('season', 'team'),
+    suffixes = c('', '_away')
+  )
+
+avg_total_log_td <- log(mean(c(beg_rank_data$avg_td, beg_rank_data$avg_td_opp), na.rm = TRUE))
+
+avg_total_log_td
+
+beg_rank_data$home_td_ratio <- beg_rank_data$avg_td / beg_rank_data$avg_td_against_away
+beg_rank_data$away_td_ratio <- beg_rank_data$avg_td_away / beg_rank_data$avg_td_against
+
+beg_rank_data$home_fg_ratio <- beg_rank_data$avg_fg / beg_rank_data$avg_fg_against_away
+beg_rank_data$away_fg_ratio <- beg_rank_data$avg_fg_away / beg_rank_data$avg_fg_against
+
+```
+
+```{r tt_split}
+train_data <- beg_rank_data %>% 
+  filter(
+    season != '2024' & 
+    season != '2004' &
+    season != '2005' &
+    season != '2006' &
+    season != '2007' &
+    season != '2008' &
+    season != '2009' &
+    season != '2010' &
+    !grepl(paste(non_desired_games, collapse = "|"), game_id)
+  )
+# test_data <- data %>% 
+#   filter(
+#     season == '2024' & 
+#     !grepl(paste(non_desired_games, collapse = "|"), game_id))
+```
+
+```{r}
+train_data$two
+```
+
+
+```{r}
+
+training_data_long <- train_data %>%
+  select(game_id, everything()) %>%
+  bind_rows(
+    transmute(
+      .,
+      game_id,
+      team_name = home_team,
+      opponent_name = away_team,
+      elo = home_elo_z,
+      td_ratio = home_td_ratio,
+      fg_ratio = home_fg_ratio,
+      opp_elo = away_elo_z,
+      opp_td_ratio = away_td_ratio,
+      type = "home",
+      ishome = 1,
+      touchdown=touchdown,
+      field_goal_made=field_goal_made,
+      extra_point_good=extra_point_good,
+      two_point_success=two_point_success
+    ),
+    transmute(
+      .,
+      game_id,
+      team_name = away_team,
+      opponent_name = home_team,
+      elo = away_elo_z,
+      td_ratio = away_td_ratio,
+      fg_ratio = away_fg_ratio,
+      opp_elo = home_elo_z,
+      opp_td_ratio = home_td_ratio,
+      type = "away",
+      ishome = 0,
+      touchdown=touchdown_away,
+      field_goal_made=field_goal_made_away,
+      extra_point_good=extra_point_good_away,
+      two_point_success=two_point_success_away
+    )
+  ) %>%
+  select(
+    c(game_id, home_score, away_score, team_name, opponent_name, elo, td_ratio, fg_ratio, opp_elo, opp_td_ratio, ishome, touchdown, field_goal_made, extra_point_good, two_point_success)
+  ) %>% arrange(game_id) %>%
+  filter(team_name != "")
+
+training_data_long
+```
+
+
+```{r Models}
+# ------------------------
+# TD PRIORS
+priors_td <- c(
+  set_prior("normal(0, 1)", class = "b"),
+  set_prior("normal(0,1)", class="Intercept")
+)
+
+# ------------------------
+# Touchdowns Model
+touchdowns_model <- brm(
+  touchdown ~ ishome + elo + opp_elo + td_ratio + 
+              (1 | team_name) + (1 | opponent_name),
+  data = training_data_long,
+  family = poisson(),
+  prior = priors_td,
+  iter=3000,
+  thin=2,
+  cores=-1
+)
+
+saveRDS(touchdowns_model, file = 'touchdown_model.rds')
+
+# ------------------------
+# FG PRIORS
+priors_fg <- c(
+  set_prior("normal(0, 1)", class = "b"),
+  set_prior("normal(0, 1)", class = "Intercept")
+)
+
+# ------------------------
+# Field Goals Model
+fgs_model <- brm(
+  field_goal_made ~ ishome + 
+                    elo + 
+                    opp_elo + 
+                    fg_ratio +
+                    (1 | team_name) + 
+                    (1 | opponent_name),
+  data = training_data_long,
+  family = poisson(),
+  prior = priors_fg,
+  iter=3000,
+  thin=2,
+  cores=-1
+)
+
+saveRDS(fgs_model, file = 'fg_model.rds')
+
+# ------------------------
+# Extra Points Priors
+priors_exp <- c(
+  set_prior("normal(0, 5)", class = "b"),
+  set_prior("normal(0, 10)", class = "Intercept")
+)
+
+# ------------------------
+# Extra Points Model
+exps_model <- brm(
+  extra_point_good ~ spec_ret + 
+                     is_home +
+                     team_elo_z +
+                     (1 | p:team) + (1 | p:opponent),
+  data = train_data,
+  family = poisson(),
+  prior = priors_exp
+)
+
+# ------------------------
+# Two Point Conversion Priors
+priors_2p <- c(
+  set_prior("normal(0, 5)", class = "b"),
+  set_prior("normal(0, 10)", class = "Intercept")
+)
+
+# ------------------------
+# Two Point Conversions Model
+two_points_model <- brm(
+  two_point_success ~ new_qb + 
+                       new_coach + 
+                       off_ret +
+                       def_ret_opp +
+                       team_elo_z + 
+                       opponent_elo_z + 
+                       win_last + 
+                       win_3_last +
+                       win_5_last +
+                       win_last_opp +
+                       win_3_last_opp +
+                       win_5_last_opp +
+                       is_home + 
+                       (1 | p:team) + (1 | p:opponent),
+  data = train_data,
+  family = poisson(),
+  prior = priors_2p
+)
+```
+```{r}
+pp_check(fgs_model, type='bars')
+summary(fgs_model)
+```
+
+
+
+
