@@ -3,24 +3,28 @@ title: "Data_Gathering"
 output: html_document
 ---
 
+## Import Libraries
 ```{r load_lib}
 library(nflreadr)
 library(tidyr)
 library(dplyr)
 ```
 
+## Load Play-By-Play NFL Data
 ```{r grab_pbp}
 
 # GRAB PBP DATA
-data <- load_pbp(2004:2024)
+data <- load_pbp(2024)
+
+data <- data %>% filter(week != 18)
 
 ```
 
+## Filter Scoring Opportunities
 ```{r filter_data}
 
 # FILTER DATA TO GET DESIRED COLS
 subset <- subset(data,
-       season_type == "REG" &
        (
          touchdown == 1 |
          (fourth_down_converted == 1 |
@@ -28,12 +32,12 @@ subset <- subset(data,
          punt_inside_twenty == 1 |
          own_kickoff_recovery == 1 |
          extra_point_attempt == 1 |
-         extra_point_result == "good" |
+         # extra_point_result == "good" |
          field_goal_attempt == 1 |
          field_goal_result == "made" |
          return_touchdown == 1 |
          two_point_attempt == 1 |
-         two_point_conv_result == "success" |
+         # two_point_conv_result == "success" |
          pass_touchdown == 1 |
          rush_touchdown == 1 | 
          interception == 1 |
@@ -41,13 +45,13 @@ subset <- subset(data,
          safety == 1
        ),
        select = c(
+         season_type,
          season,
          game_id,
          home_team,
          away_team,
          home_score,
          away_score,
-         season_type,
          posteam,
          defteam,
          fourth_down_failed,
@@ -70,12 +74,12 @@ subset <- subset(data,
          safety))
 ```
 
+## Mutate Successes
 ```{r mutate_cols}
 
 # GRAB SUCCESSES
 subset_mutated <- subset %>%
   mutate(
-    fourth_down_attempt = (fourth_down_converted == 1 | fourth_down_failed == 1),
     extra_point_good = extra_point_result == "good",
     field_goal_made = field_goal_result == "made",
     two_point_success = two_point_conv_result == "success"
@@ -83,25 +87,28 @@ subset_mutated <- subset %>%
 
 ```
 
-
+## Create Team Summaries for Each Game
 ```{r summarize}
 
 # SUMMARIZE SUCCESSES
 data_summ <- subset_mutated %>%
   group_by(game_id, posteam) %>%
   summarize(
+    season_type = first(season_type),
     season = first(season),
     home_team = first(home_team),
     away_team = first(away_team),
     home_score = first(home_score),
     away_score = first(away_score),
     touchdown = sum(touchdown == 1, na.rm = TRUE),
-    fourth_down_attempt = sum(fourth_down_attempt == 1, na.rm = TRUE),
     punt_inside_twenty = sum(punt_inside_twenty == 1, na.rm = TRUE),
     own_kickoff_recovery = sum(own_kickoff_recovery == 1, na.rm = TRUE),
+    extra_point_attempt = sum(extra_point_attempt ==1, na.rm = TRUE),
     extra_point_good = sum(extra_point_good == 1, na.rm = TRUE),
+    field_goal_attempt = sum(field_goal_attempt == 1, na.rm = TRUE),
     field_goal_made = sum(field_goal_made == 1, na.rm = TRUE),
     return_touchdown = sum(return_touchdown == 1, na.rm = TRUE),
+    two_point_attempt = sum(two_point_attempt ==1, na.rm=TRUE),
     two_point_success = sum(two_point_success == 1, na.rm = TRUE),
     pass_touchdown = sum(pass_touchdown == 1, na.rm = TRUE),
     rush_touchdown = sum(rush_touchdown == 1, na.rm = TRUE),
@@ -111,6 +118,7 @@ data_summ <- subset_mutated %>%
   )
 ```
 
+## Clean Team Names
 ```{r retention}
 
 # CREATE A TEAM DICT
@@ -156,81 +164,16 @@ team_abbr_map <- c(
   WAS = "WAS"
 )
 
-# LOAD ROSTERS
-tmp <- load_rosters(seasons = 2003:2024)
-
 # MAP TEAM ABBR
-tmp <- tmp %>%
-  mutate(team = recode(team, !!!team_abbr_map))
+data_summ <- data_summ %>%
+  mutate(home_team = recode(home_team, !!!team_abbr_map),
+         away_team = recode(away_team, !!!team_abbr_map))
 
-# DEFINE POS GROUPS
-offensive_pos <- c('C', 'FB', 'G', 'OL', 'QB', 'RB', 'T', 'TE', 'WR') 
-defensive_pos <- c('CB', 'DB', 'DE', 'DL', 'DT', 'FS', 'ILB', 'LB', 'MLB', 'NT', 'OLB', 'S', 'SS')
-special_pos   <- c('LS', 'K', 'KR', 'P', 'PR')
-
-# CREATE RETENTION TAG FOR DFS
-retention_off_df <- tmp %>%
-  filter(position %in% offensive_pos) %>%
-  select(team, season, full_name) %>%
-  mutate(prev_season = season - 1) %>%
-  left_join(tmp %>%
-              filter(position %in% offensive_pos) %>%
-              select(team, season, full_name) %>%
-              rename(prev_season = season,
-                     prev_team = team),
-            by = c("prev_season", "full_name")) %>%
-  mutate(retained = team == prev_team)
-
-retention_def_df <- tmp %>%
-  filter(position %in% defensive_pos) %>%
-  select(team, season, full_name) %>%
-  mutate(prev_season = season - 1) %>%
-  left_join(tmp %>%
-              filter(position %in% defensive_pos) %>%
-              select(team, season, full_name) %>%
-              rename(prev_season = season,
-                     prev_team = team),
-            by = c("prev_season", "full_name")) %>%
-  mutate(retained = team == prev_team)
-
-retention_spec_df <- tmp %>%
-  filter(position %in% special_pos) %>%
-  select(team, season, full_name) %>%
-  mutate(prev_season = season - 1) %>%
-  left_join(tmp %>%
-              filter(position %in% special_pos) %>%
-              select(team, season, full_name) %>%
-              rename(prev_season = season,
-                     prev_team = team),
-            by = c("prev_season", "full_name")) %>%
-  mutate(retained = team == prev_team)
-
-# GET COUNTS OF RETENTION
-roster_retention_off <- retention_off_df %>%
-  group_by(team, season) %>%
-  summarize(offensive_retention = sum(retained, na.rm = TRUE), .groups = 'drop')
-
-roster_retention_def <- retention_def_df %>%
-  group_by(team, season) %>%
-  summarize(defensive_retention = sum(retained, na.rm = TRUE), .groups = 'drop')
-
-roster_retention_spec <- retention_spec_df %>%
-  group_by(team, season) %>%
-  summarize(special_retention = sum(retained, na.rm = TRUE), .groups = 'drop')
 
 ```
 
-
-```{r merge_retention}
-# MERGE RETENTION COUNTS
-roster_retention <- merge(roster_retention_off, roster_retention_def, by=c('team', 'season'), all=TRUE)
-roster_retention <- merge(roster_retention, roster_retention_spec, by=c('team', 'season'), all=TRUE)
-```
-
-
+## Create CSV
 ```{r save_data}
-data_summ <- merge(data_summ, roster_retention, by.x = c('posteam', 'season'), by.y = c('team', 'season'), all.x = TRUE)
-
 write.csv(data_summ, "nfl_data.csv")
 
 ```
