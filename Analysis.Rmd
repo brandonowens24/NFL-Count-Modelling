@@ -1,0 +1,192 @@
+---
+title: "Analysis"
+output: html_document
+---
+
+## Import Libraries
+```{r}
+library(dplyr)
+library(tidyverse)
+library(rstan)
+library(ggridges)
+```
+
+## Read Regular Season RDS
+```{r}
+fit <- readRDS('reg.rds')
+```
+
+## Create Traceplot for Some Intercepts
+```{r}
+traceplot(fit, pars = c('int_td_rush', 'int_td_pass', 'int_td_ret', 'int_td_def', 'int_safety', 'int_fg'))
+```
+
+## Grab Regular Season Posterior Distributions for Teams
+```{r}
+posterior <- rstan::extract(fit)
+df <- read_csv('Cleaned_Dataset.csv')
+teams <- unique(c(df$team_home, df$team_away))
+
+team_strengths <- data.frame(
+  team = rep(teams, each=nrow(posterior$att_pass_td)),
+  att_pass_td = c(posterior$att_pass_td),
+  att_rush_td = c(posterior$att_rush_td),
+  att_ret_td = c(posterior$att_ret_td),
+  att_def_td = c(posterior$att_def_td),
+  att_safeties = c(posterior$att_safeties),
+  att_fg = c(posterior$att_fg),
+  def_pass_td = c(posterior$def_pass_td),
+  def_rush_td = c(posterior$def_rush_td),
+  def_ret_td = c(posterior$def_ret_td),
+  att_def_td = c(posterior$def_def_td),
+  def_safeties = c(posterior$def_safeties),
+  def_fg = c(posterior$def_fg),
+  bp_exp = c(posterior$bp_exp),
+  bp_2p = c(posterior$bp_2p)
+)
+
+scoring_strengths <- data.frame(
+  team = rep(teams, each=nrow(posterior$att_pass_td)),
+  net_pass = c(posterior$att_pass_td) - c(posterior$def_pass_td),
+  net_rush = c(posterior$att_rush_td) - c(posterior$def_rush_td),
+  fg_off = c(posterior$att_fg)
+)
+
+post_td_probs <- data.frame(
+  team = rep(teams, each=nrow(posterior$bp_exp)),
+  bp_exp = c(posterior$bp_exp),
+  bp_2p = c(posterior$bp_2p)
+)
+  
+```
+
+## Show Latent Net Passing Strengths
+```{r}
+scoring_summary <- scoring_strengths %>%
+  group_by(team) %>%
+  summarise(
+    mean = mean(net_pass),
+    low = quantile(net_pass, 0.025),
+    high = quantile(net_pass, 0.975),
+    low1 = quantile(net_pass, 0.16),
+    high1 = quantile(net_pass, 0.84)
+  )
+
+ggplot(scoring_summary, aes(x = reorder(team,mean), y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = high), width = 0.2) +
+  geom_errorbar(aes(ymin = low1, ymax = high1), width = 0.4, color = 'blue') +
+  coord_flip() +
+  labs(x = "Team", y = "Net Passing Strength") +
+  theme_minimal()
+```
+
+## Show Latent Net Rushing Strengths
+```{r}
+scoring_summary <- scoring_strengths %>%
+  group_by(team) %>%
+  summarise(
+    mean = mean(net_rush),
+    low = quantile(net_rush, 0.025),
+    high = quantile(net_rush, 0.975),
+    low1 = quantile(net_rush, 0.16),
+    high1 = quantile(net_rush, 0.84)
+  )
+
+ggplot(scoring_summary, aes(x = reorder(team,mean), y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = high), width = 0.2) +
+  geom_errorbar(aes(ymin = low1, ymax = high1), width = 0.4, color = 'blue') +
+  coord_flip() +
+  labs(x = "Team", y = "Net Rushing Strength") +
+  theme_minimal()
+```
+
+## Show Offensive Rushing Strengths
+```{r}
+scoring_summary <- scoring_strengths %>%
+  group_by(team) %>%
+  summarise(
+    mean = mean(rush_off),
+    low = quantile(rush_off, 0.025),
+    high = quantile(rush_off, 0.975),
+    low1 = quantile(rush_off, 0.16),
+    high1 = quantile(rush_off, 0.84)
+  )
+
+ggplot(scoring_summary, aes(x = reorder(team,mean), y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = high), width = 0.2) +
+  geom_errorbar(aes(ymin = low1, ymax = high1), width = 0.4, color = 'blue') +
+  coord_flip() +
+  labs(x = "Team", y = "Offensive Rushing Strength") +
+  theme_minimal()
+```
+
+## Show Defensive Rushing Strengths
+```{r}
+scoring_summary <- scoring_strengths %>%
+  group_by(team) %>%
+  summarise(
+    mean = mean(rush_def),
+    low = quantile(rush_def, 0.025),
+    high = quantile(rush_def, 0.975),
+    low1 = quantile(rush_def, 0.16),
+    high1 = quantile(rush_def, 0.84)
+  )
+
+ggplot(scoring_summary, aes(x = reorder(team,mean), y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = high), width = 0.2) +
+  geom_errorbar(aes(ymin = low1, ymax = high1), width = 0.4, color = 'blue') +
+  coord_flip() +
+  labs(x = "Team", y = "Defensive Rushing Strength") +
+  theme_minimal()
+```
+
+## Show Team FG Strengths
+```{r}
+scoring_summary <- scoring_strengths %>%
+  group_by(team) %>%
+  summarise(
+    mean = mean(fg_off),
+    low = quantile(fg_off, 0.025),
+    high = quantile(fg_off, 0.975),
+    low1 = quantile(fg_off, 0.16),
+    high1 = quantile(fg_off, 0.84)
+  )
+
+ggplot(scoring_summary, aes(x = reorder(team,mean), y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = high), width = 0.2) +
+  geom_errorbar(aes(ymin = low1, ymax = high1), width = 0.4, color = 'blue') +
+  coord_flip() +
+  labs(x = "Team", y = "Offensive Field Goal Strength") +
+  theme_minimal()
+```
+
+
+## Show Team EXP Strengths
+```{r}
+scoring_summary <- post_td_probs %>%
+  group_by(team) %>%
+  summarise(
+    mean = mean(bp_exp),
+    low = quantile(bp_exp, 0.025),
+    high = quantile(bp_exp, 0.975),
+    low1 = quantile(bp_exp, 0.16),
+    high1 = quantile(bp_exp, 0.84)
+  )
+
+ggplot(scoring_summary, aes(x = reorder(team,mean), y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = high), width = 0.2) +
+  geom_errorbar(aes(ymin = low1, ymax = high1), width = 0.4, color = 'blue') +
+  coord_flip() +
+  labs(x = "Team", y = "Probability of Scoring Extra Point") +
+  theme_minimal()
+```
+
+
+
+
