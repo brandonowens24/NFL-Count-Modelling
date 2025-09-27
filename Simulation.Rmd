@@ -1,0 +1,863 @@
+---
+title: "Simulation"
+output: html_document
+---
+
+## Import Libraries
+```{r Libs}
+library(dplyr)
+library(tidyverse)
+library(rstan)
+library(pbapply)
+```
+
+## Import Cleaned Dataset
+```{r data}
+df <- read_csv("Cleaned_Dataset.csv")
+```
+
+## Create Individual Game Simulation Functions
+```{r sims!}
+simulate_scores <- function(home, att, def, home_adv, int) {
+  log_mean <- sum(c(att, def, home_adv, int), na.rm = TRUE)
+  
+  if (!is.finite(log_mean)) log_mean <- 0
+  
+  mean <- exp(log_mean)
+  if (!is.finite(mean) || is.na(mean) || mean < 0) mean <- 0
+  
+  rpois(1, lambda = mean)
+}
+
+simulate_home_scores <- function(home_team_id, away_team_id, params, n_sims) {
+  
+  idx <- sample(1:36000, n_sims, replace = TRUE)
+  
+  scores <- data.frame(
+    pass_td = numeric(n_sims),
+    rush_td = numeric(n_sims),
+    ret_td = numeric(n_sims),
+    def_td = numeric(n_sims),
+    fg = numeric(n_sims),
+    safety = numeric(n_sims),
+    exp = numeric(n_sims),
+    twop = numeric(n_sims)
+  )
+  
+  scores$pass_td <- sapply(1:n_sims, function(i) simulate_scores(
+    1,
+    params$att_pass_td[idx[i], home_team_id],
+    params$def_pass_td[idx[i], away_team_id],
+    params$home_advantage_pass[i], params$int_td_pass[idx[i]]
+  ))
+  
+  scores$rush_td <- sapply(1:n_sims, function(i) simulate_scores(
+    1,
+    params$att_rush_td[idx[i], home_team_id],
+    params$def_rush_td[idx[i], away_team_id],
+    params$home_advantage_rush[i], params$int_td_rush[idx[i]]
+  ))
+  
+  scores$ret_td <- sapply(1:n_sims, function(i) simulate_scores(
+    1,
+    params$att_ret_td[idx[i], home_team_id],
+    params$def_ret_td[idx[i], away_team_id],
+    params$home_advantage_ret[i], params$int_td_ret[idx[i]]
+  ))
+
+  scores$def_td <- sapply(1:n_sims, function(i) simulate_scores(
+    1,
+    params$att_def_td[idx[i], home_team_id],
+    params$def_def_td[idx[i], away_team_id],
+    params$home_advantage_def[i], params$int_td_def[idx[i]]
+  ))
+  
+  scores$fg <- sapply(1:n_sims, function(i) simulate_scores(
+    1,
+    params$att_fg[idx[i], home_team_id],
+    params$def_fg[idx[i], away_team_id],
+    params$home_advantage_fg[i], params$int_fg[idx[i]]
+  ))
+  
+  scores$safety <- sapply(1:n_sims, function(i) simulate_scores(
+    1,
+    params$att_safeties[idx[i], home_team_id],
+    params$def_safeties[idx[i], away_team_id],
+    params$home_advantage_safety[i], params$int_safety[idx[i]]
+  ))
+  
+  total_td <- rowSums(scores[, c("rush_td", "pass_td", "ret_td")], na.rm = TRUE)
+  
+  for (i in 1:n_sims) {
+    td <- total_td[i]
+    for (c in seq_len(td)) {
+      exp_choice_prob <- params$p_attempts[idx[i], home_team_id]
+      exp_choice <- rbinom(1, 1, exp_choice_prob)
+      
+      if (exp_choice == 1) {
+        exp_chance <- params$bp_exp[idx[i], home_team_id]
+        exp_res <- rbinom(1, 1, exp_chance)
+        scores$exp[i] <- scores$exp[i] + exp_res
+      } else {
+        two_chance <- params$bp_2p[idx[i], home_team_id]
+        two_res <- rbinom(1, 1, two_chance)
+        scores$twop[i] <- scores$twop[i] + two_res
+      }
+    }
+  }
+  
+  return(scores)
+}
+
+simulate_away_scores <- function(home_team_id, away_team_id, params, n_sims) {
+
+  idx <- sample(1:4000, n_sims, replace = TRUE)
+  
+  scores <- data.frame(
+    pass_td = numeric(n_sims),
+    rush_td = numeric(n_sims),
+    ret_td = numeric(n_sims),
+    def_td = numeric(n_sims),
+    fg = numeric(n_sims),
+    safety = numeric(n_sims),
+    exp = numeric(n_sims),
+    twop = numeric(n_sims)
+  )
+  
+  scores$pass_td <- sapply(1:n_sims, function(i) simulate_scores(
+    0,
+    params$att_pass_td[idx[i], away_team_id],
+    params$def_pass_td[idx[i], home_team_id],
+    0, params$int_td_pass[idx[i]]
+  ))
+  
+  scores$rush_td <- sapply(1:n_sims, function(i) simulate_scores(
+    0,
+    params$att_rush_td[idx[i], away_team_id],
+    params$def_rush_td[idx[i], home_team_id],
+    0, params$int_td_rush[idx[i]]
+  ))
+  
+  scores$ret_td <- sapply(1:n_sims, function(i) simulate_scores(
+    0,
+    params$att_ret_td[idx[i], away_team_id],
+    params$def_ret_td[idx[i], home_team_id],
+    0, params$int_td_ret[idx[i]]
+  ))
+  
+  scores$def_td <- sapply(1:n_sims, function(i) simulate_scores(
+    0,
+    params$att_def_td[idx[i], away_team_id],
+    params$def_def_td[idx[i], home_team_id],
+    0, params$int_td_def[idx[i]]
+  ))
+  
+  scores$fg <- sapply(1:n_sims, function(i) simulate_scores(
+    0,
+    params$att_fg[idx[i], away_team_id],
+    params$def_fg[idx[i], home_team_id],
+    0, params$int_fg[idx[i]]
+  ))
+  
+  scores$safety <- sapply(1:n_sims, function(i) simulate_scores(
+    0,
+    params$att_safeties[idx[i], away_team_id],
+    params$def_safeties[idx[i], home_team_id],
+    0, params$int_safety[idx[i]]
+  ))
+  
+  total_td <- rowSums(scores[, c("rush_td", "pass_td", "ret_td")], na.rm = TRUE)
+  
+  for (i in 1:n_sims) {
+    td <- total_td[i]
+    for (c in seq_len(td)) {
+      exp_choice_prob <- params$p_attempts[idx[i], away_team_id]
+      exp_choice <- rbinom(1, 1, exp_choice_prob)
+      
+      if (exp_choice == 1) {
+        exp_chance <- params$bp_exp[idx[i], away_team_id]
+        exp_res <- rbinom(1, 1, exp_chance)
+        scores$exp[i] <- scores$exp[i] + exp_res
+      } else {
+        two_chance <- params$bp_2p[idx[i], away_team_id]
+        two_res <- rbinom(1, 1, two_chance)
+        scores$twop[i] <- scores$twop[i] + two_res
+      }
+    }
+  }
+  
+  return(scores)
+}
+
+simulate_overtime <- function(home_team_id, away_team_id, params) {
+  
+  ot_scale <- 0.166
+  has_possession <- sample(c(0, 1), 1, prob = c(0.5, 0.5)) # 0 for home, 1 for away
+  score_vec <- c(0, 0)  # score_vec[1] = home, score_vec[2] = away
+  
+  repeat {
+    if (has_possession == 0) {
+      scores <- simulate_home_scores(home_team_id, away_team_id, params, n_sims = 1)
+      
+      ot_points <- round((((scores$pass_td + scores$rush_td + scores$ret_td + scores$def_td) * 6) +
+                           (scores$fg * 3)) * ot_scale)
+      
+      score_vec[1] <- score_vec[1] + ot_points
+      if (score_vec[1] >= 6) {
+        return(score_vec)
+      } else {
+        has_possession <- 1
+      }
+      
+    } else {  # away possession
+      scores <- simulate_away_scores(home_team_id, away_team_id, params, n_sims = 1)
+      
+      ot_points <- round((((scores$pass_td + scores$rush_td + scores$ret_td + scores$def_td) * 6) +
+                           (scores$fg * 3)) * ot_scale)
+      
+      score_vec[2] <- score_vec[2] + ot_points
+      if (score_vec[2] >= 6) {
+        return(score_vec)
+      } else {
+        has_possession <- 0
+      }
+    }
+  }
+}
+
+
+simulate_game <- function(home_team_name, away_team_name, params, team_ids, n_sims = 10000) {
+  
+  home_team_id <- team_ids[home_team_name]
+  away_team_id <- team_ids[away_team_name]
+  
+  home_scores <- simulate_home_scores(home_team_id, away_team_id, params, n_sims)
+  away_scores <- simulate_away_scores(home_team_id, away_team_id, params, n_sims) 
+  
+  home_points_reg <- home_scores$rush_td * 6+ 
+    home_scores$pass_td * 6+ 
+    home_scores$ret_td * 6+ 
+    home_scores$def_td * 6+ 
+    home_scores$fg * 3+ 
+    home_scores$safety * 2+
+    home_scores$exp * 1+ 
+    home_scores$twop * 2
+  
+  away_points_reg <- away_scores$rush_td * 6+ 
+    away_scores$pass_td * 6+ 
+    away_scores$ret_td * 6+ 
+    away_scores$def_td * 6+
+    away_scores$fg * 3+ 
+    
+    away_scores$safety * 2+
+    away_scores$exp * 1+ 
+    away_scores$twop * 2
+  
+  home_points_ot <- rep(0, n_sims)
+  away_points_ot <- rep(0, n_sims)
+  
+  ties <- home_points_reg == away_points_reg
+  
+  for (i in which(ties)) {
+    ot_vec <- simulate_overtime(home_team_id, away_team_id, params)
+    home_points_ot[i] <- ot_vec[1]
+    away_points_ot[i] <- ot_vec[2]
+  }
+  
+  home_points <- home_points_reg + home_points_ot
+  away_points <- away_points_reg + away_points_ot
+  
+  return(data.frame(home_points, away_points))
+  }
+
+```
+
+## Copy Down Actual Game Lines and Simualte Games
+```{r}
+df <- read_csv('Cleaned_Dataset.csv')
+teams <- unique(c(df$team_home, df$team_away))
+team_ids <- setNames(seq_along(teams), teams)
+
+game_list <- data.frame(
+  game_id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
+  game_type = c('reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg', 'reg'),
+  home_teams = c('HOU', 'BAL', 'BUF', 'LA', 'TB', 'PHI', 'KC', 'BUF', 'DET', 'PHI', 'KC', 'PHI', 'PHI'),
+  away_teams = c('LAC', 'PIT', 'DEN', 'MIN', 'WAS', 'GB', 'HOU', 'BAL', 'WAS', 'LA', 'BUF', 'WAS', 'KC'),
+  
+  home_ml_ao = c(138, -500, -425, 115, -170, -270, -600, 105, -500, -400, -116, -280, -101),
+  away_ml_ao = c(-162, 360, 320, -135, 145, 220, 400, -125, 360, 300, -104, 230, -119),
+  
+  home_spread_ao = c(100, -110, -110, -110, -110, -110, -110, -110, -115, -120, -110, -110, -110),
+  away_spread_ao = c(100, -110, -110, -110, -110, -110, -110, -110, -105, -110, -110, -110, -110),
+  
+  over_ao = c(-110, -110, -110, -110, -110, -110, -110, -110, -110, -115, -110, -110, -115),
+  under_ao = c(-110, -110, -110, -110, -110, -110, -110, -110, -110, -105, -110, -110, -110),
+  
+  total = c(41.5, 44.5, 48.5, 47.5, 51.5, 45.5, 41.5, 51.5, 55.5, 43.5, 49.5, 47.5, 48.5),
+  home_spread = c(2.5, -9.5, -7.5, 2.5, -3.5, -5.5, -9.5, 1.5, -8.5, -7.5, -2.5, -6.5, 1.5), 
+  away_spread = c(-2.5, 9.5, 7.5, -2.5, 3.5, 5.5, 9.5, -1.5, 8.5, 7.5, 2.5, 6.5, -1.5),
+  
+  home_score = c(32, 28, 31, 27, 20, 22, 23, 27, 31, 28, 32, 55, 40),
+  away_score = c(12, 14, 7, 9, 23, 10, 14, 25, 45, 22, 29, 23, 22),
+  
+  home_win = c(1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1),
+  home_cover = c(1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1),
+  total_over = c(1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1)
+)
+
+
+all_sims <- lapply(seq_len(nrow(game_list)), function(i) {
+  
+  gt <- game_list$game_type[i]
+  home <- game_list$home_teams[i]
+  away <- game_list$away_teams[i]
+  id   <- game_list$game_id[i]
+  
+  print(paste0("Running ", gt, " Sims for game_id ", id))
+  
+  str <- paste0(gt, ".rds")
+  fit <- readRDS(str)
+  posterior <- rstan::extract(fit)
+  
+  params <- list(
+    home_advantage_pass = posterior$home_advantage_pass,
+    home_advantage_rush = posterior$home_advantage_rush,
+    home_advantage_ret = posterior$home_advantage_ret,
+    home_advantage_def = posterior$home_advantage_def,
+    home_advantage_fg = posterior$home_advantage_fg,
+    home_advantage_safety = posterior$home_advantage_safety,
+    att_pass_td    = posterior$att_pass_td,
+    att_rush_td    = posterior$att_rush_td,
+    att_ret_td     = posterior$att_ret_td,
+    att_def_td     = posterior$att_def_td,
+    att_fg         = posterior$att_fg,
+    att_safeties   = posterior$att_safeties,
+    def_pass_td    = posterior$def_pass_td,
+    def_rush_td    = posterior$def_rush_td,
+    def_ret_td     = posterior$def_ret_td,
+    def_def_td     = posterior$def_def_td,
+    def_fg         = posterior$def_fg,
+    def_safeties   = posterior$def_safeties,
+    int_td_pass    = posterior$int_td_pass,
+    int_td_rush    = posterior$int_td_rush,
+    int_td_ret     = posterior$int_td_ret,
+    int_td_def     = posterior$int_td_def,
+    int_fg         = posterior$int_fg,
+    int_safety     = posterior$int_safety,
+    p_attempts     = posterior$p_attempts[,,1],
+    bp_exp         = posterior$bp_exp,
+    bp_2p          = posterior$bp_2p
+  )
+  
+  tmp <- simulate_game(home, away, params, team_ids, n_sims = 10000)
+  tmp$game_id <- id 
+  
+  tmp
+}) %>% bind_rows()
+```
+
+## Combine Odds with Sumamrized Simulations
+```{r}
+n_sims <- 10000
+
+moneyline <- all_sims %>%
+  left_join(game_list, by = "game_id") %>%
+  group_by(game_id) %>%
+  summarise(
+    
+    home_team      = first(home_teams),
+    away_team      = first(away_teams),
+  
+    # Real observations
+    home_score     = first(home_score),
+    away_score     = first(away_score),  
+    home_win      = first(home_win),
+    home_cover     = first(home_cover),
+    total_over     = first(total_over),
+    
+    # American Odds
+    home_ml_ao     = first(home_ml_ao),
+    away_ml_ao     = first(away_ml_ao),
+    home_spread_ao = first(home_spread_ao),
+    away_spread_ao = first(away_spread_ao),
+    over_ao = first(over_ao),
+    under_ao = first(under_ao),
+    
+    # Betting Lines
+    home_spread  = first(home_spread),
+    away_spread  = first(away_spread),
+    total       = first(total),
+    
+    # Implied Book Probabilities
+    home_book_ml_ip    = ifelse(home_ml_ao > 0,
+                             100 / (home_ml_ao + 100),
+                             -home_ml_ao / (-home_ml_ao + 100)),
+    
+    away_book_ml_ip    = ifelse(away_ml_ao > 0,
+                             100 / (away_ml_ao + 100),
+                             -away_ml_ao / (-away_ml_ao + 100)),
+    
+    home_book_cover_ip = ifelse(home_spread_ao > 0,
+                              100 / (home_spread_ao + 100),
+                              -home_spread_ao / (-home_spread_ao + 100)),
+    
+    away_book_cover_ip = ifelse(away_spread_ao > 0,
+                              100 / (away_spread_ao + 100),
+                              -away_spread_ao / (-away_spread_ao + 100)),
+    
+    over_book_ip       = ifelse(over_ao > 0,
+                             100 / (over_ao + 100),
+                             -over_ao / (-over_ao + 100)),
+    
+    under_book_ip      = ifelse(under_ao > 0,
+                             100 / (under_ao + 100),
+                             -under_ao / (-under_ao + 100)),
+    
+    # Predicted Probabilities
+    pred_home_pts = mean(home_points),
+    pred_away_pts = mean(away_points),
+    
+    pred_home_ml_prob  = mean(home_points > away_points),
+    pred_away_ml_prob  = mean(away_points > home_points),
+    pred_home_cover_prob = mean((home_points - away_points) > -home_spread),
+    pred_away_cover_prob = mean((away_points - home_points) > -away_spread),
+    pred_over_prob = mean((home_points + away_points) > total),
+    pred_under_prob = mean((home_points + away_points) < total),
+    
+    pred_home_win      = ifelse(pred_home_pts > pred_away_pts, 1, 0),
+    pred_away_win      = ifelse(pred_home_pts < pred_away_pts, 1, 0),
+    pred_home_spread   = -mean(home_points - away_points),
+    pred_away_spread   = -mean(away_points - home_points),
+    pred_total         = mean(home_points + away_points)
+  ) 
+```
+
+## Determine Bet Choices
+```{r}
+choices <- moneyline %>% 
+  mutate( 
+    ml_hold_adj = ((home_book_ml_ip + away_book_ml_ip)-1) / 2,
+    spread_hold_adj = ((home_book_cover_ip + away_book_cover_ip)-1) / 2,
+    tot_hold_adj = ((over_book_ip + under_book_ip)-1)/2
+  ) %>% 
+  
+  mutate( 
+    # Home ML
+    bet_home_ml_straight = ifelse(
+      (pred_home_win == 1), 
+      1, 0), 
+    bet_home_ml_half = ifelse(
+      (pred_home_ml_prob > 0.5) & (pred_home_ml_prob > pred_away_ml_prob), 
+      1, 0),     
+    bet_home_ml_value = ifelse(
+      (pred_home_ml_prob > home_book_ml_ip + ml_hold_adj) & (pred_home_ml_prob > pred_away_ml_prob), 
+      1, 0), 
+    
+    # Away ML
+    bet_away_ml_straight = ifelse(
+      (pred_away_win == 1), 
+      1, 0), 
+    bet_away_ml_half = ifelse(
+      (pred_away_ml_prob > 0.5) & (pred_away_ml_prob > pred_home_ml_prob), 
+      1, 0),     
+    bet_away_ml_value = ifelse(
+      (pred_away_ml_prob > away_book_ml_ip + ml_hold_adj) & (pred_away_ml_prob > pred_home_ml_prob), 
+      1, 0), 
+    
+    # Home Cover
+    bet_home_cover_straight = ifelse(
+      (pred_home_spread < home_spread), 
+      1, 0), 
+    bet_home_cover_half = ifelse(
+      (pred_home_cover_prob > 0.5) & (pred_home_cover_prob > pred_away_cover_prob), 
+      1, 0),     
+    bet_home_cover_value = ifelse(
+      (pred_home_cover_prob > home_book_cover_ip + spread_hold_adj) & (pred_home_cover_prob > pred_away_cover_prob), 
+      1, 0), 
+    
+    # Away Cover
+    bet_away_cover_straight = ifelse(
+      (pred_away_spread > away_spread), 
+      1, 0), 
+    bet_away_cover_half = ifelse(
+      (pred_away_cover_prob > 0.5) & (pred_away_cover_prob > pred_home_cover_prob), 
+      1, 0),     
+    bet_away_cover_value = ifelse(
+      (pred_away_cover_prob > away_book_cover_ip + spread_hold_adj) & (pred_away_cover_prob > pred_home_cover_prob), 
+      1, 0), 
+    
+    # Over
+    bet_over_straight = ifelse(
+      (pred_total > total), 
+      1, 0), 
+    bet_over_half = ifelse(
+      (pred_over_prob > 0.5) & (pred_over_prob > pred_under_prob), 
+      1, 0),     
+    bet_over_value = ifelse(
+      (pred_over_prob > over_book_ip + tot_hold_adj) & (pred_over_prob > pred_under_prob), 
+      1, 0), 
+    
+    # Under
+    bet_under_straight = ifelse(
+      (pred_total < total), 
+      1, 0), 
+    bet_under_half = ifelse(
+      (pred_under_prob > 0.5) & (pred_under_prob > pred_over_prob), 
+      1, 0),     
+    bet_under_value = ifelse(
+      (pred_under_prob > under_book_ip + tot_hold_adj) & (pred_under_prob > pred_over_prob), 
+      1, 0),    
+    ) %>%
+  
+  mutate(
+    # Straight Bet Success
+    ml_success_straight = case_when(
+      bet_home_ml_straight == 1 & home_win == 1 ~ 1,
+      bet_away_ml_straight == 1 & home_win == 0 ~ 1,
+      bet_home_ml_straight == 1 | bet_away_ml_straight == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    spread_success_straight = case_when(
+      bet_home_cover_straight == 1 & home_cover == 1 ~ 1,
+      bet_away_cover_straight == 1 & home_cover == 0 ~ 1,
+      bet_home_cover_straight == 1 | bet_away_cover_straight == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    tot_success_straight = case_when(
+      bet_over_straight == 1 & total_over == 1 ~ 1,
+      bet_under_straight == 1 & total_over == 0 ~ 1,
+      bet_over_straight == 1 | bet_under_straight == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+  
+    # Half Bet Success
+    ml_success_half = case_when(
+      bet_home_ml_half == 1 & home_win == 1 ~ 1,
+      bet_away_ml_half == 1 & home_win == 0 ~ 1,
+      bet_home_ml_half == 1 | bet_away_ml_half == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    spread_success_half = case_when(
+      bet_home_cover_half == 1 & home_cover == 1 ~ 1,
+      bet_away_cover_half == 1 & home_cover == 0 ~ 1,
+      bet_home_cover_half == 1 | bet_away_cover_half == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    tot_success_half = case_when(
+      bet_over_half == 1 & total_over == 1 ~ 1,
+      bet_under_half == 1 & total_over == 0 ~ 1,
+      bet_over_half == 1 | bet_under_half == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+  
+    # Value Bet Success
+    ml_success_value = case_when(
+      bet_home_ml_value == 1 & home_win == 1 ~ 1,
+      bet_away_ml_value == 1 & home_win == 0 ~ 1,
+      bet_home_ml_value == 1 | bet_away_ml_value == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    spread_success_value = case_when(
+      bet_home_cover_value == 1 & home_cover == 1 ~ 1,
+      bet_away_cover_value == 1 & home_cover == 0 ~ 1,
+      bet_home_cover_value == 1 | bet_away_cover_value == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    tot_success_value = case_when(
+      bet_over_value == 1 & total_over == 1 ~ 1,
+      bet_under_value == 1 & total_over == 0 ~ 1,
+      bet_over_value == 1 | bet_under_value == 1 ~ 0,
+      TRUE ~ NA_real_
+    ),
+    
+    # Which Line Did We Bet On w/ What Probability?
+    
+    ml_choice_prob_straight = ifelse(bet_home_ml_straight == 1, home_book_ml_ip, away_book_ml_ip),
+    ml_choice_prob_half = ifelse(bet_home_ml_half == 1, home_book_ml_ip, away_book_ml_ip),
+    ml_choice_prob_value = ifelse(bet_home_ml_value == 1, home_book_ml_ip, away_book_ml_ip),
+    ml_choice_line_straight = ifelse(bet_home_ml_straight == 1, home_ml_ao, away_ml_ao),
+    ml_choice_line_half = ifelse(bet_home_ml_half == 1, home_ml_ao, away_ml_ao),
+    ml_choice_line_value = ifelse(bet_home_ml_value == 1, home_ml_ao, away_ml_ao),
+    
+    cover_choice_prob_straight = ifelse(bet_home_cover_straight == 1, home_book_cover_ip, away_book_cover_ip),
+    cover_choice_prob_half = ifelse(bet_home_cover_half == 1, home_book_cover_ip, away_book_cover_ip),
+    cover_choice_prob_value = ifelse(bet_home_cover_value == 1, home_book_cover_ip, away_book_cover_ip), 
+    cover_choice_line_straight = ifelse(bet_home_cover_straight == 1, home_spread_ao, away_spread_ao),
+    cover_choice_line_half = ifelse(bet_home_cover_half == 1, home_spread_ao, away_spread_ao),
+    cover_choice_line_value = ifelse(bet_home_cover_value == 1, home_spread_ao, away_spread_ao),
+    
+    tot_choice_prob_straight = ifelse(bet_over_straight == 1, over_book_ip, under_book_ip),
+    tot_choice_prob_half = ifelse(bet_over_half == 1, over_book_ip, under_book_ip),
+    tot_choice_prob_value = ifelse(bet_over_value == 1, over_book_ip, under_book_ip), 
+    tot_choice_line_straight = ifelse(bet_over_straight == 1, over_ao, under_ao),
+    tot_choice_line_half = ifelse(bet_over_half == 1, over_ao, under_ao),
+    tot_choice_line_value = ifelse(bet_over_value == 1, over_ao, under_ao), 
+
+  ) %>%
+  
+  mutate(
+    # Straight
+    ml_choice_decimal_odds_straight = ifelse(ml_choice_line_straight > 0,
+                                             1 + ml_choice_line_straight / 100,
+                                             1 + 100 / abs(ml_choice_line_straight)),
+    cover_choice_decimal_odds_straight = ifelse(cover_choice_line_straight > 0,
+                                                1 + cover_choice_line_straight / 100,
+                                                1 + 100 / abs(cover_choice_line_straight)),
+    tot_choice_decimal_odds_straight = ifelse(tot_choice_line_straight > 0,
+                                              1 + tot_choice_line_straight / 100,
+                                              1 + 100 / abs(tot_choice_line_straight)),
+    
+    # Half
+    ml_choice_decimal_odds_half = ifelse(ml_choice_line_half > 0,
+                                         1 + ml_choice_line_half / 100,
+                                         1 + 100 / abs(ml_choice_line_half)),
+    cover_choice_decimal_odds_half = ifelse(cover_choice_line_half > 0,
+                                            1 + cover_choice_line_half / 100,
+                                            1 + 100 / abs(cover_choice_line_half)),
+    tot_choice_decimal_odds_half = ifelse(tot_choice_line_half > 0,
+                                          1 + tot_choice_line_half / 100,
+                                          1 + 100 / abs(tot_choice_line_half)),
+    
+    # Value
+    ml_choice_decimal_odds_value = ifelse(ml_choice_line_value > 0,
+                                          1 + ml_choice_line_value / 100,
+                                          1 + 100 / abs(ml_choice_line_value)),
+    cover_choice_decimal_odds_value = ifelse(cover_choice_line_value > 0,
+                                             1 + cover_choice_line_value / 100,
+                                             1 + 100 / abs(cover_choice_line_value)),
+    tot_choice_decimal_odds_value = ifelse(tot_choice_line_value > 0,
+                                           1 + tot_choice_line_value / 100,
+                                           1 + 100 / abs(tot_choice_line_value))
+  ) %>%
+  
+  mutate(
+    # Wager Amounts
+    baseline_wager = 7.7,
+    
+    # Straight
+    ml_wager_straight = baseline_wager * (((ml_choice_decimal_odds_straight * ml_choice_prob_straight) - (1 - ml_choice_prob_straight))/ml_choice_decimal_odds_straight),
+    spread_wager_straight = baseline_wager * (((cover_choice_decimal_odds_straight * cover_choice_prob_straight) - (1 - cover_choice_prob_straight))/cover_choice_decimal_odds_straight),
+    tot_wager_straight = baseline_wager * (((tot_choice_decimal_odds_straight * tot_choice_prob_straight) - (1 - tot_choice_prob_straight))/tot_choice_decimal_odds_straight),
+    
+    # Half
+    ml_wager_half = baseline_wager * (((ml_choice_decimal_odds_half * ml_choice_prob_half) - (1 - ml_choice_prob_half))/ml_choice_decimal_odds_half),
+    spread_wager_half = baseline_wager * (((cover_choice_decimal_odds_half * cover_choice_prob_half) - (1 - cover_choice_prob_half))/cover_choice_decimal_odds_half),
+    tot_wager_half = baseline_wager * (((tot_choice_decimal_odds_half * tot_choice_prob_half) - (1 - tot_choice_prob_half))/tot_choice_decimal_odds_half),
+    
+    # Value
+    ml_wager_value = baseline_wager * (((ml_choice_decimal_odds_value * ml_choice_prob_value) - (1 - ml_choice_prob_value))/ml_choice_decimal_odds_value),
+    spread_wager_value = baseline_wager * (((cover_choice_decimal_odds_value * cover_choice_prob_value) - (1 - cover_choice_prob_value))/cover_choice_decimal_odds_value),
+    tot_wager_value = baseline_wager * (((tot_choice_decimal_odds_value * tot_choice_prob_value) - (1 - tot_choice_prob_value))/tot_choice_decimal_odds_value)
+  ) %>%
+  
+  mutate(
+    # Fixed Wagering (baseline_wager)
+    ## Straight
+    ml_fix_straight_profit = baseline_wager * (ml_choice_decimal_odds_straight - 1),
+    cover_fix_straight_profit = baseline_wager * (cover_choice_decimal_odds_straight - 1),
+    tot_fix_straight_profit = baseline_wager * (tot_choice_decimal_odds_straight - 1),
+    
+    ## Half
+    ml_fix_half_profit = baseline_wager * (ml_choice_decimal_odds_half - 1),
+    cover_fix_half_profit = baseline_wager * (cover_choice_decimal_odds_half - 1),
+    tot_fix_half_profit = baseline_wager * (tot_choice_decimal_odds_half - 1),
+    
+    ## Value
+    ml_fix_value_profit = baseline_wager * (ml_choice_decimal_odds_value - 1),
+    cover_fix_value_profit = baseline_wager * (cover_choice_decimal_odds_value - 1),
+    tot_fix_value_profit = baseline_wager * (tot_choice_decimal_odds_value - 1),
+    
+    # Kelly Wagering
+    ## Straight
+    ml_kelly_straight_profit = ml_wager_straight * (ml_choice_decimal_odds_straight - 1),
+    cover_kelly_straight_profit = spread_wager_straight * (cover_choice_decimal_odds_straight - 1),
+    tot_kelly_straight_profit = tot_wager_straight * (tot_choice_decimal_odds_straight - 1),
+    
+    ## Half
+    ml_kelly_half_profit = ml_wager_half * (ml_choice_decimal_odds_half - 1),
+    cover_kelly_half_profit = spread_wager_half * (cover_choice_decimal_odds_half - 1),
+    tot_kelly_half_profit = tot_wager_half * (tot_choice_decimal_odds_half - 1),
+    
+    ## Value
+    ml_kelly_value_profit = ml_wager_value * (ml_choice_decimal_odds_value - 1),
+    cover_kelly_value_profit = spread_wager_value * (cover_choice_decimal_odds_value - 1),
+    tot_kelly_value_profit = tot_wager_value * (tot_choice_decimal_odds_value - 1)
+  ) %>%
+  
+  mutate(
+    # Fix Straight
+    ml_pl_fix_straight = ifelse(ml_success_straight == 1, ml_fix_straight_profit, -baseline_wager),
+    spread_pl_fix_straight = ifelse(spread_success_straight == 1, cover_fix_straight_profit, -baseline_wager),
+    tot_pl_fix_straight = ifelse(tot_success_straight == 1, tot_fix_straight_profit, -baseline_wager),
+    
+    # Fix Half
+    ml_pl_fix_half = ifelse(ml_success_half == 1, ml_fix_half_profit, -baseline_wager),
+    spread_pl_fix_half = ifelse(spread_success_half == 1, cover_fix_half_profit, -baseline_wager),
+    tot_pl_fix_half = ifelse(tot_success_half == 1, tot_fix_half_profit, -baseline_wager),
+    
+    # Fix Value
+    ml_pl_fix_value = ifelse(ml_success_value == 1, ml_fix_value_profit, -baseline_wager),
+    spread_pl_fix_value = ifelse(spread_success_value == 1, cover_fix_value_profit, -baseline_wager),
+    tot_pl_fix_value = ifelse(tot_success_value == 1, tot_fix_value_profit, -baseline_wager),
+    
+    # Kelly Straight
+    ml_pl_kelly_straight = ifelse(ml_success_straight == 1, ml_kelly_straight_profit, -ml_wager_straight),
+    spread_pl_kelly_straight = ifelse(spread_success_straight == 1, cover_kelly_straight_profit, -spread_wager_straight),
+    tot_pl_kelly_straight = ifelse(tot_success_straight == 1, tot_kelly_straight_profit, -tot_wager_straight),
+    
+    # Kelly Half
+    ml_pl_kelly_half = ifelse(ml_success_half == 1, ml_kelly_half_profit, -ml_wager_half),
+    spread_pl_kelly_half = ifelse(spread_success_half == 1, cover_kelly_half_profit, -spread_wager_half),
+    tot_pl_kelly_half = ifelse(tot_success_half == 1, tot_kelly_half_profit, -tot_wager_half),
+    
+    # Kelly Value
+    ml_pl_kelly_value = ifelse(ml_success_value == 1, ml_kelly_value_profit, -ml_wager_value),
+    spread_pl_kelly_value = ifelse(spread_success_value == 1, cover_kelly_value_profit, -spread_wager_value),
+    tot_pl_kelly_value = ifelse(tot_success_value == 1, tot_kelly_value_profit, -tot_wager_value),
+    
+  ) %>%
+  select(
+    game_id,
+    home_team,
+    away_team,
+    ml_success_straight,
+    spread_success_straight,
+    tot_success_straight,
+    ml_success_half,
+    spread_success_half,
+    tot_success_half,
+    ml_success_value,
+    spread_success_value,
+    tot_success_value,
+    ml_pl_fix_straight,
+    ml_pl_fix_half,
+    ml_pl_fix_value,
+    ml_pl_kelly_straight,
+    ml_pl_kelly_half,
+    ml_pl_kelly_value,
+    spread_pl_fix_straight,
+    spread_pl_fix_half,
+    spread_pl_fix_value,
+    spread_pl_kelly_straight,
+    spread_pl_kelly_half,
+    spread_pl_kelly_value,
+    tot_pl_fix_straight,
+    tot_pl_fix_half,
+    tot_pl_fix_value,
+    tot_pl_kelly_straight,
+    tot_pl_kelly_half,
+    tot_pl_kelly_value,
+  ) %>%
+    mutate(
+      across(
+        contains('_pl_'),
+        ~replace_na(.x, 0)
+      )
+    ) %>%
+  summarise(
+      ml_pl_fix_straight    = sum(ml_pl_fix_straight),
+      ml_pl_fix_half        = sum(ml_pl_fix_half),
+      ml_pl_fix_value       = sum(ml_pl_fix_value),
+      ml_pl_kelly_straight  = sum(ml_pl_kelly_straight),
+      ml_pl_kelly_half      = sum(ml_pl_kelly_half),
+      ml_pl_kelly_value     = sum(ml_pl_kelly_value),
+      
+      spread_pl_fix_straight   = sum(spread_pl_fix_straight),
+      spread_pl_fix_half       = sum(spread_pl_fix_half),
+      spread_pl_fix_value      = sum(spread_pl_fix_value),
+      spread_pl_kelly_straight = sum(spread_pl_kelly_straight),
+      spread_pl_kelly_half     = sum(spread_pl_kelly_half),
+      spread_pl_kelly_value    = sum(spread_pl_kelly_value),
+      
+      tot_pl_fix_straight    = sum(tot_pl_fix_straight),
+      tot_pl_fix_half        = sum(tot_pl_fix_half),
+      tot_pl_fix_value       = sum(tot_pl_fix_value),
+      tot_pl_kelly_straight  = sum(tot_pl_kelly_straight),
+      tot_pl_kelly_half      = sum(tot_pl_kelly_half),
+      tot_pl_kelly_value     = sum(tot_pl_kelly_value)
+)
+
+```
+
+## Only Select Fix/Kelly Value/Straight Spread Bets
+```{r}
+choices %>% select(matches("spread.*(fix|kelly).*?(value|straight)"))
+```
+
+```{r}
+all_sims
+```
+
+## Create Comparison of Super Bowl Scoring
+```{r}
+lookup <- c(home_points = "PHI", away_points = "KC")
+
+superbowl_scores <- all_sims %>% 
+  filter(game_id == 13) %>%
+  rename_with(~ lookup[.x], names(lookup)) %>% 
+  pivot_longer(
+    cols = c("PHI", "KC"),
+    names_to = "team",
+    values_to = "score"
+  )
+  
+
+superbowl_scores %>%
+  ggplot(aes(x = score, fill = team)) +
+  geom_density(position = "identity", alpha = 0.6, adjust=2) +
+  xlim(0, 65) +
+  labs(
+    title = 'Super Bowl Simulation',
+    x = 'Score',
+    y = 'Density',
+    fill = 'Team'
+  ) +
+  theme(
+    axis.title.x = element_text(face='bold', size=14),
+    axis.title.y = element_text(face='bold', size=14),
+    plot.title = element_text(hjust=0.5),
+    title = element_text(face='bold', size=14)
+  ) +
+  scale_fill_manual(values=c('KC' = 'red', 'PHI' = 'green'))
+  
+```
+
+## Create Comparison of Super Bowl Teams Latent Rushing Strenghts
+```{r}
+fit <- readRDS('reg.rds')
+posterior <- rstan::extract(fit)
+
+
+att_rush_td <- posterior$att_rush_td[, c(2, 6)]
+
+rush_td_df <- data.frame(att_rush_td)
+
+lookup <- c(X2 = "PHI", X1 = "KC")
+
+superbowl_rushing <- rush_td_df %>% 
+  rename_with(~ lookup[.x], names(lookup)) %>% 
+  pivot_longer(
+    cols = c("PHI", "KC"),
+    names_to = "team",
+    values_to = "score"
+  )
+  
+superbowl_rushing %>%
+  ggplot(aes(x = score, fill = team)) +
+  geom_density(position = "identity", alpha = 0.6, adjust=2) +
+  labs(
+    title = 'Super Bowl Rushing Strengths',
+    x = 'Latent Rushing Attack Parameter',
+    y = 'Density',
+    fill = 'Team'
+  ) +
+  theme(
+    axis.title.x = element_text(face='bold', size=14),
+    axis.title.y = element_text(face='bold', size=14),
+    plot.title = element_text(hjust=0.5),
+    title = element_text(face='bold', size=14)
+  ) +
+  scale_fill_manual(values=c('KC' = 'red', 'PHI' = 'green'))
+```
+
+
