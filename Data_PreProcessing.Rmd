@@ -3,212 +3,131 @@ title: "Data_PreProcessing"
 output: html_document
 ---
 
+## Import Libraries
 ```{r Imports}
 library(dplyr)
 library(readr)
 library(zoo)
 library(purrr)
+library(tidyverse)
+library(ggplot2)
+library(ggrepel)
 ```
 
+## Read In Sports Lines
 ```{r Load}
 df = read.csv('nfl_data.csv')
-
-# FEATURE ENGINEERING
-df <- df %>%
-  arrange(season, posteam, game_id) %>% # Ensure data is correctly ordered
-  group_by(season, posteam) %>%        # Group by team and season
-  mutate(
-    
-    ishome = if_else(posteam == home_team, 1, 0),
-
-    win = if_else(((home_score > away_score) & (ishome == 1)) |
-                  ((away_score > home_score) & (ishome == 0)), 1, 0),
-    win_last = lag(win),
-
-    # WIN SUM ROLLING WINDOW
-    win_sum_3_current_full_window = rollapply(win, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    win_sum_5_current_full_window = rollapply(win, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-
-    # LAW ROLLING WINDOW
-    win_3_last = lag(win_sum_3_current_full_window, default = NA_real_),
-    win_5_last = lag(win_sum_5_current_full_window, default = NA_real_),
-
-    win_last_home = if_else(lag(ishome == 1) & lag(home_score > away_score), 1,
-                            if_else(lag(ishome == 0) & lag(away_score > home_score), 1, 0)), # Correct as is
-
-    win_last_away = if_else(lag(ishome == 1) & lag(away_score > home_score), 1,
-                            if_else(lag(ishome == 0) & lag(home_score > away_score), 1, 0)), # Correct as is
-
-    # CURRENT TEAM WIN STREAK
-    win_streak_ending_current_game = purrr::accumulate(
-      .x = win,
-      .f = ~ if (.y == 1) .x + 1L else 0L, 
-      .init = 0L
-    )[-1], 
-
-    # ENSURE WIN STREAK ISN'T COUNTING CURRENT GAME
-    win_streak = lag(win_streak_ending_current_game, default = 0L), 
-
-
-    # PUNTING IN 20 ROLLING AVERAGE LAGGED
-    punt_inside_twenty_last = lag(punt_inside_twenty),
-    punt_inside_twenty_sum_3_current_full_window = rollapply(punt_inside_twenty, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    punt_inside_twenty_sum_5_current_full_window = rollapply(punt_inside_twenty, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    punt_inside_twenty_3_last = lag(punt_inside_twenty_sum_3_current_full_window, default = NA_real_),
-    punt_inside_twenty_5_last = lag(punt_inside_twenty_sum_5_current_full_window, default = NA_real_),
-
-    # EXTRA POINT ROLLING AVERAGE LAGGED
-    exp_good_last = lag(extra_point_good),
-    exp_good_sum_3_current_full_window = rollapply(extra_point_good, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    exp_good_sum_5_current_full_window = rollapply(extra_point_good, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    exp_good_3_last = lag(exp_good_sum_3_current_full_window, default = NA_real_),
-    exp_good_5_last = lag(exp_good_sum_5_current_full_window, default = NA_real_),
-
-    # FIELD GOALS ROLLING AVERAGE LAGGED
-    field_goal_last = lag(field_goal_made),
-    field_goal_sum_3_current_full_window = rollapply(field_goal_made, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    field_goal_sum_5_current_full_window = rollapply(field_goal_made, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    field_goal_3_last = lag(field_goal_sum_3_current_full_window, default = NA_real_),
-    field_goal_5_last = lag(field_goal_sum_5_current_full_window, default = NA_real_),
-
-    # RET TD ROLLING AVERAGE LAGGED
-    ret_td_last = lag(return_touchdown),
-    ret_td_sum_3_current_full_window = rollapply(return_touchdown, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    ret_td_sum_5_current_full_window = rollapply(return_touchdown, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    ret_td_3_last = lag(ret_td_sum_3_current_full_window, default = NA_real_),
-    ret_td_5_last = lag(ret_td_sum_5_current_full_window, default = NA_real_),
-
-    # 2P ROLLING AVERAGE LAGGED
-    twop_last = lag(two_point_success),
-    twop_sum_3_current_full_window = rollapply(two_point_success, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    twop_sum_5_current_full_window = rollapply(two_point_success, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    twop_3_last = lag(twop_sum_3_current_full_window, default = NA_real_),
-    twop_5_last = lag(twop_sum_5_current_full_window, default = NA_real_),
-
-    # PASS TD ROLLING AVERAGE LAGGED
-    pass_td_last = lag(pass_touchdown),
-    pass_td_sum_3_current_full_window = rollapply(pass_touchdown, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    pass_td_sum_5_current_full_window = rollapply(pass_touchdown, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    pass_td_3_last = lag(pass_td_sum_3_current_full_window, default = NA_real_),
-    pass_td_5_last = lag(pass_td_sum_5_current_full_window, default = NA_real_),
-
-    # RUSH TD ROLLING AVERAGE LAGGED
-    rush_td_last = lag(rush_touchdown),
-    rush_td_sum_3_current_full_window = rollapply(rush_touchdown, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    rush_td_sum_5_current_full_window = rollapply(rush_touchdown, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    rush_td_3_last = lag(rush_td_sum_3_current_full_window, default = NA_real_),
-    rush_td_5_last = lag(rush_td_sum_5_current_full_window, default = NA_real_),
-
-    # INTERCEPTIONS ROLLING WINDOW LAGGED
-    int_last = lag(interception),
-    int_sum_3_current_full_window = rollapply(interception, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    int_sum_5_current_full_window = rollapply(interception, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    int_3_last = lag(int_sum_3_current_full_window, default = NA_real_),
-    int_5_last = lag(int_sum_5_current_full_window, default = NA_real_),
-
-    # LOSE FUMBLES ROLLING WINDOW LAGGED
-    fumble_last = lag(fumble_lost),
-    fumble_sum_3_current_full_window = rollapply(fumble_lost, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    fumble_sum_5_current_full_window = rollapply(fumble_lost, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    fumble_3_last = lag(fumble_sum_3_current_full_window, default = NA_real_),
-    fumble_5_last = lag(fumble_sum_5_current_full_window, default = NA_real_),
-
-    # SAFETY ROLLING WINDOW LAGGED
-    safety_last = lag(safety),
-    safety_sum_3_current_full_window = rollapply(safety, width = 3, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    safety_sum_5_current_full_window = rollapply(safety, width = 5, FUN = sum, align = "right", fill = NA, partial = FALSE, na.rm = TRUE),
-    safety_3_last = lag(safety_sum_3_current_full_window, default = NA_real_),
-    safety_5_last = lag(safety_sum_5_current_full_window, default = NA_real_),
-    
-    # RETENTION
-    off_ret = first(offensive_retention),
-    def_ret = first(defensive_retention),
-    spec_ret = first(special_retention),
-    
-    # OPPONENT TEAM
-    opponent = case_when(posteam == home_team ~ away_team, posteam == away_team ~ home_team)
-  ) %>%
-  ungroup()
-```
-
-```{r QB_Coach_Retention}
 lines <- read.csv("Historical_Lines.csv")
+```
 
-# GET QB/COACH RETENTION
-qb_and_coach <- lines %>%
-  select(Team_ABR, Quarterback, Coach, Year) %>%
-  group_by(Team_ABR) %>%
-  arrange(Year, .by_group = TRUE) %>%
+## Grab Desired Cols
+```{r filter_data}
+df_filtered <- df %>%
+  arrange(game_id) %>%
+  select(posteam, season, game_id, home_team, away_team, home_score, away_score, touchdown, extra_point_attempt, extra_point_good,
+         field_goal_attempt, field_goal_made, return_touchdown, two_point_attempt, two_point_success, pass_touchdown, rush_touchdown, safety)
+```
+
+## Create Home/Away Cols
+```{r split_home_away}
+home_data <- df_filtered %>% filter(posteam == home_team) %>%
   mutate(
-    new_qb = ifelse(is.na(lag(Quarterback)) | lag(Quarterback) != Quarterback, 1, 0),
-    new_coach = ifelse(is.na(lag(Coach)) | lag(Coach) != Coach, 1, 0)
-  )
-```
-
-```{r Merge}
-# CLEAN QB AND COACH RETENTION
-qb_and_coach <- qb_and_coach %>%
-  select(
-    c('Team_ABR', 'Year', 'new_qb', 'new_coach')
+    team = home_team,
+    score = home_score
   ) %>%
-  rename(posteam = Team_ABR, season = Year)
+  select(-one_of(c('home_team', 'away_team','home_score', 'away_score')))
 
-# MERGE ON GAME BY GAME
-gbg <- merge(
-  df,
-  qb_and_coach,
-  by = c('posteam', 'season'),
-  all.x = TRUE
-)
+away_data <- df_filtered %>% filter(posteam == away_team) %>%
+  mutate(
+    team = away_team,
+    score = away_score
+  ) %>%
+  select(-one_of(c('home_team', 'away_team','home_score', 'away_score')))
+```
 
-# ADD OPPONENT INFO
-des_cols = c(
-  'season',
-  'game_id',
-  'posteam',
-  'off_ret',
-  'def_ret',
-  'spec_ret',
-  'new_coach',
-  'touchdown',
-  'extra_point_good', 
-  'field_goal_made',
-  'two_point_success'
-)
+## Combine Home/Away Cols
+```{r combine_gbg}
+game_data <- home_data %>% 
+  inner_join(away_data, by = "game_id", suffix = c('_home', '_away'))
 
-gbg_away <- gbg %>%
-  filter(posteam == away_team) %>%
-  select(des_cols)
+game_data$def_touchdown_home <- game_data$touchdown_home - (game_data$return_touchdown_home + game_data$pass_touchdown_home + game_data$rush_touchdown_home)
+game_data$def_touchdown_away <- game_data$touchdown_away - (game_data$return_touchdown_away + game_data$pass_touchdown_away + game_data$rush_touchdown_away)
 
-gbg_away <- gbg_away[!duplicated(gbg_away),]
 
-new <- merge(
-  gbg,
-  gbg_away,
-  by.x = c('season', 'away_team'),
-  by.y = c('season', 'posteam'),
-  suffixes = c("", "_away"),
-  all.x = TRUE ) %>% filter(home_team == posteam)
+write_csv(game_data, 'Cleaned_Dataset.csv')
+```
 
+## Create Subsets For Each Playoff Round
+```{r show_mov}
+patterns <- c("_18_", "_19_", "_20_", "_21_", "_22_", "_23_")
+
+game_data <- game_data %>%
+  filter(!grepl(paste(patterns, collapse = "|"), game_id))
+ranks <- game_data %>%
+  mutate(
+    home_mov = score_home - score_away,
+    away_mov = score_away - score_home,
+    home_win = home_mov >0,
+    away_win = home_mov < 0
+  )
+
+
+ranks <- ranks %>%
+  select(team=team_home, score = score_home, opp_score = score_away, mov = home_mov, win = home_win, loss=away_win) %>%
+  bind_rows(
+    ranks %>%
+      select(team=team_away, score = score_away, opp_score = score_home, mov = away_mov, win = away_win, loss=home_win)
+  )
+
+ranks <- ranks %>% group_by(team) %>%
+  summarise(mov = mean(mov), wl =(sum(win) / (sum(win) + sum(loss)))) %>%
+  arrange(desc(mov))
+```
+
+## Create MOV Plot
+```{r}
+ggplot(ranks, aes(reorder(team, mov), y = mov, fill = mov)) +
+  geom_bar(stat = "identity") +
+  scale_fill_distiller(palette = "Spectral") +
+  coord_flip() +
+  labs(x = "Team", y = "Average MOV", fill = "MOV") +
+  theme_minimal()
+```
+
+## Create Plot for MOV vs. WL Ratio
+```{r}
+ggplot(ranks, aes(x = mov, y = wl, label = team)) +
+  geom_point(size=2) +
+  geom_smooth(method = lm) +
+  geom_text_repel() + 
+  labs(x = "Average MOV", y = "Win/Loss Ratio") +
+  theme_minimal()
 ```
 
 ```{r}
-set.seed(812025)
+game_data_long <- game_data %>%
+  pivot_longer(cols = c(touchdown_home, touchdown_away),
+               names_to = "team_type",
+               values_to = "touchdowns")
 
-new <- new %>%
-  group_by(game_id) %>%
-  slice_sample(n = 1) %>%
-  ungroup()
+ggplot(game_data_long, aes(x = touchdowns)) +
+  geom_bar() +
+  labs(x = "Touchdowns", y = "Count") +
+  theme(plot.title = element_text(hjust=0.5)) +
+  ggtitle('2024-2025 Touchdown Counts by Game')
+
 ```
-
 ```{r}
-new
+mean_td <- mean(c(game_data$touchdown_home, game_data$touchdown_away))
+sim_pois <- rpois(5000, mean_td)
+
+ex_df <- data.frame('touchdowns'=sim_pois)
+
+ggplot(ex_df, aes(x = touchdowns)) +
+  geom_bar() + 
+  theme(plot.title = element_text(hjust=0.5)) +
+  xlim(c(-0.5,7.5)) +
+  ggtitle('Poisson Distribution w/ Mean TD Lambda') +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank()) 
 ```
-
-
-```{r Save_Data}
-write_csv(new, "Cleaned_Dataset.csv")
-```
-
-
 
